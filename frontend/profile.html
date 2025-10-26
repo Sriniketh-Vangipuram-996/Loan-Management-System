@@ -1,1114 +1,1239 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Profile - LoanEase</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-        :root {
-            --primary: #667eea;
-            --primary-dark: #5a6fd8;
-            --secondary: #764ba2;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-300: #dee2e6;
-            --gray-600: #6c757d;
-            --gray-800: #343a40;
-        }
+      :root {
+        --primary: #667eea;
+        --primary-dark: #5a6fd8;
+        --secondary: #764ba2;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --gray-100: #f8f9fa;
+        --gray-200: #e9ecef;
+        --gray-300: #dee2e6;
+        --gray-600: #6c757d;
+        --gray-800: #343a40;
+      }
 
-        body {
-            background: #f5f7fb;
-            color: var(--gray-800);
-        }
+      body {
+        background: #f5f7fb;
+        color: var(--gray-800);
+      }
 
-        /* Header */
-        .header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 0 20px;
-        }
+      /* Header */
+      .header {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0 20px;
+      }
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 0;
-        }
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15px 0;
+      }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--primary);
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-        }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--primary);
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+      }
 
-        .logo-icon {
-            background: var(--primary);
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
+      .logo-icon {
+        background: var(--primary);
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
 
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+      .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
 
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
 
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
+      .btn-primary:hover {
+        background: var(--primary-dark);
+      }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--gray-300);
-            color: var(--gray-600);
-        }
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--gray-300);
+        color: var(--gray-600);
+      }
 
-        .btn-outline:hover {
-            background: var(--gray-100);
-        }
+      .btn-outline:hover {
+        background: var(--gray-100);
+      }
 
-        /* Main Content */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
+      /* Main Content */
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 30px 20px;
+      }
 
-        /* Page Header */
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
+      /* Page Header */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
 
-        .page-title h1 {
-            font-size: 2rem;
-            color: var(--gray-800);
-            margin-bottom: 5px;
-        }
+      .page-title h1 {
+        font-size: 2rem;
+        color: var(--gray-800);
+        margin-bottom: 5px;
+      }
 
-        .page-subtitle {
-            color: var(--gray-600);
-            font-size: 1.1rem;
-        }
+      .page-subtitle {
+        color: var(--gray-600);
+        font-size: 1.1rem;
+      }
 
-        /* Loading State */
-        .loading-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray-600);
-        }
+      /* Loading State */
+      .loading-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--gray-600);
+      }
 
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--gray-200);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid var(--gray-200);
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-
-        /* Error State */
-        .error-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--danger);
+        100% {
+          transform: rotate(360deg);
         }
+      }
 
-        .error-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
+      /* Error State */
+      .error-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--danger);
+      }
 
-        /* Profile Layout */
+      .error-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+
+      /* Profile Layout */
+      .profile-layout {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 30px;
+      }
+
+      /* Profile Sidebar */
+      .profile-sidebar {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0 auto 20px;
+      }
+
+      .profile-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--gray-800);
+      }
+
+      .profile-email {
+        color: var(--gray-600);
+        margin-bottom: 20px;
+      }
+
+      .member-since {
+        background: var(--gray-100);
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: var(--gray-600);
+      }
+
+      /* Profile Content */
+      .profile-content {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      /* Profile Card */
+      .profile-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .card-header {
+        background: var(--gray-100);
+        padding: 20px 30px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      .card-header h3 {
+        color: var(--gray-800);
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .card-body {
+        padding: 30px;
+      }
+
+      /* Form Styles */
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--gray-800);
+      }
+
+      .form-label .required {
+        color: var(--danger);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid var(--gray-300);
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .form-control:disabled {
+        background: var(--gray-100);
+        color: var(--gray-600);
+        cursor: not-allowed;
+      }
+
+      .form-control.error {
+        border-color: var(--danger);
+      }
+
+      .form-text {
+        font-size: 0.85rem;
+        color: var(--gray-600);
+        margin-top: 5px;
+      }
+
+      .error-message {
+        color: var(--danger);
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: none;
+      }
+
+      /* Read-only Info */
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .info-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .info-label {
+        font-size: 0.9rem;
+        color: var(--gray-600);
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      .info-value {
+        font-size: 1.1rem;
+        color: var(--gray-800);
+        font-weight: 600;
+      }
+
+      /* Action Buttons */
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid var(--gray-200);
+      }
+
+      .btn-success {
+        background: var(--success);
+        color: white;
+      }
+
+      /* Edit Mode */
+      .edit-mode .view-mode {
+        display: none;
+      }
+
+      .view-mode .edit-mode {
+        display: none;
+      }
+
+      /* Success Message */
+      .success-message {
+        background: #d1fae5;
+        color: #065f46;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+        border: 1px solid #9ae6b4;
+      }
+
+      /* Loading State for Buttons */
+      .btn-loading {
+        position: relative;
+        color: transparent;
+      }
+
+      .btn-loading::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        left: 50%;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
         .profile-layout {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
+          grid-template-columns: 1fr;
         }
 
-        /* Profile Sidebar */
-        .profile-sidebar {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 30px;
-            text-align: center;
+        .page-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 15px;
         }
 
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-
-        .profile-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--gray-800);
-        }
-
-        .profile-email {
-            color: var(--gray-600);
-            margin-bottom: 20px;
-        }
-
-        .member-since {
-            background: var(--gray-100);
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: var(--gray-600);
-        }
-
-        /* Profile Content */
-        .profile-content {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        /* Profile Card */
-        .profile-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .card-header {
-            background: var(--gray-100);
-            padding: 20px 30px;
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .card-header h3 {
-            color: var(--gray-800);
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-body {
-            padding: 30px;
-        }
-
-        /* Form Styles */
         .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+          grid-template-columns: 1fr;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--gray-800);
-        }
-
-        .form-label .required {
-            color: var(--danger);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--gray-300);
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .form-control:disabled {
-            background: var(--gray-100);
-            color: var(--gray-600);
-            cursor: not-allowed;
-        }
-
-        .form-control.error {
-            border-color: var(--danger);
-        }
-
-        .form-text {
-            font-size: 0.85rem;
-            color: var(--gray-600);
-            margin-top: 5px;
-        }
-
-        .error-message {
-            color: var(--danger);
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: none;
-        }
-
-        /* Read-only Info */
         .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+          grid-template-columns: 1fr;
         }
 
-        .info-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .info-label {
-            font-size: 0.9rem;
-            color: var(--gray-600);
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .info-value {
-            font-size: 1.1rem;
-            color: var(--gray-800);
-            font-weight: 600;
-        }
-
-        /* Action Buttons */
         .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--gray-200);
+          flex-direction: column;
         }
-
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-
-        /* Edit Mode */
-        .edit-mode .view-mode {
-            display: none;
-        }
-
-        .view-mode .edit-mode {
-            display: none;
-        }
-
-        /* Success Message */
-        .success-message {
-            background: #d1fae5;
-            color: #065f46;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            border: 1px solid #9ae6b4;
-        }
-
-        /* Loading State for Buttons */
-        .btn-loading {
-            position: relative;
-            color: transparent;
-        }
-
-        .btn-loading::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            top: 50%;
-            left: 50%;
-            margin: -10px 0 0 -10px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .profile-layout {
-                grid-template-columns: 1fr;
-            }
-            
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header -->
     <header class="header">
-        <nav class="nav">
-            <a href="../index.html" class="logo">
-                <div class="logo-icon">L</div>
-                <span>LoanEase</span>
-            </a>
-            
-            <div class="user-menu">
-                <a href="customer-dashboard.html" class="btn btn-outline">← Back to Dashboard</a>
-            </div>
-        </nav>
+      <nav class="nav">
+        <a href="../index.html" class="logo">
+          <div class="logo-icon">L</div>
+          <span>LoanEase</span>
+        </a>
+
+        <div class="user-menu">
+          <a href="customer-dashboard.html" class="btn btn-outline"
+            >← Back to Dashboard</a
+          >
+        </div>
+      </nav>
     </header>
 
     <!-- Main Content -->
     <div class="container">
-        <!-- Loading State -->
-        <div class="loading-state" id="loadingState">
-            <div class="loading-spinner"></div>
-            <h3>Loading profile...</h3>
+      <!-- Loading State -->
+      <div class="loading-state" id="loadingState">
+        <div class="loading-spinner"></div>
+        <h3>Loading profile...</h3>
+      </div>
+
+      <!-- Error State -->
+      <div class="error-state" id="errorState" style="display: none">
+        <div class="error-icon">⚠️</div>
+        <h3>Failed to load profile</h3>
+        <p id="errorMessage"></p>
+        <button class="btn btn-primary" onclick="loadProfile()">
+          Try Again
+        </button>
+      </div>
+
+      <!-- Profile Content -->
+      <div id="profileContent" style="display: none">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="page-title">
+            <h1>My Profile</h1>
+            <div class="page-subtitle">
+              Manage your personal information and preferences
+            </div>
+          </div>
+          <!-- To this: -->
+          <button class="btn btn-primary" id="editToggleBtn">
+            ✏️ Edit Profile
+          </button>
         </div>
 
-        <!-- Error State -->
-        <div class="error-state" id="errorState" style="display: none;">
-            <div class="error-icon">⚠️</div>
-            <h3>Failed to load profile</h3>
-            <p id="errorMessage"></p>
-            <button class="btn btn-primary" onclick="loadProfile()">Try Again</button>
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+          ✅ Profile updated successfully!
         </div>
 
-        <!-- Profile Content -->
-        <div id="profileContent" style="display: none;">
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="page-title">
-                    <h1>My Profile</h1>
-                    <div class="page-subtitle">Manage your personal information and preferences</div>
+        <div class="profile-layout">
+          <!-- Profile Sidebar -->
+          <div class="profile-sidebar">
+            <div class="profile-avatar" id="profileAvatar">JD</div>
+            <div class="profile-name" id="profileName">John Doe</div>
+            <div class="profile-email" id="profileEmail">
+              john.doe@example.com
+            </div>
+            <div class="member-since" id="memberSince">
+              Member since: Loading...
+            </div>
+          </div>
+
+          <!-- Profile Content -->
+          <div class="profile-content">
+            <!-- Personal Information -->
+            <div class="profile-card">
+              <div class="card-header">
+                <h3>👤 Personal Information</h3>
+              </div>
+              <div class="card-body">
+                <!-- View Mode -->
+                <div class="view-mode" id="personalInfoView">
+                  <div class="info-grid">
+                    <div class="info-item">
+                      <span class="info-label">Full Name</span>
+                      <span class="info-value" id="viewFullName">-</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Email Address</span>
+                      <span class="info-value" id="viewEmail">-</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Phone Number</span>
+                      <span class="info-value" id="viewPhone">-</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Date of Birth</span>
+                      <span class="info-value" id="viewDob">-</span>
+                    </div>
+                  </div>
                 </div>
-                <!-- To this: -->
-                <button class="btn btn-primary" id="editToggleBtn">
-                    ✏️ Edit Profile
+
+                <!-- Edit Mode -->
+                <div class="edit-mode" id="personalInfoEdit">
+                  <form id="personalInfoForm">
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label class="form-label">
+                          First Name <span class="required">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="editFirstName"
+                          required
+                        />
+                        <div class="error-message" id="firstNameError">
+                          Please enter first name
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">
+                          Last Name <span class="required">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="editLastName"
+                          required
+                        />
+                        <div class="error-message" id="lastNameError">
+                          Please enter last name
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">
+                          Email Address <span class="required">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="editEmail"
+                          required
+                          disabled
+                        />
+                        <div class="form-text">Email cannot be changed</div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">
+                          Phone Number <span class="required">*</span>
+                        </label>
+                        <input
+                          type="tel"
+                          class="form-control"
+                          id="editPhone"
+                          required
+                        />
+                        <div class="error-message" id="phoneError">
+                          Please enter valid phone number
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="editDob" />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employment & Financial Information -->
+            <div class="profile-card">
+              <div class="card-header">
+                <h3>💼 Employment & Financial Information</h3>
+              </div>
+              <div class="card-body">
+                <!-- View Mode -->
+                <div class="view-mode" id="employmentInfoView">
+                  <div class="info-grid">
+                    <div class="info-item">
+                      <span class="info-label">Occupation</span>
+                      <span class="info-value" id="viewOccupation">-</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Annual Income</span>
+                      <span class="info-value" id="viewAnnualIncome">-</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Company/Organization</span>
+                      <span class="info-value" id="viewCompany">-</span>
+                    </div>
+                    <div class="info-item full-width">
+                      <span class="info-label">Address</span>
+                      <span class="info-value" id="viewAddress">-</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Edit Mode -->
+                <div class="edit-mode" id="employmentInfoEdit">
+                  <form id="employmentInfoForm">
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label class="form-label">
+                          Occupation <span class="required">*</span>
+                        </label>
+                        <select
+                          class="form-control"
+                          id="editOccupation"
+                          required
+                        >
+                          <option value="">Select Occupation</option>
+                          <option value="salaried">Salaried Employee</option>
+                          <option value="business">Business Owner</option>
+                          <option value="self_employed">Self Employed</option>
+                          <option value="professional">Professional</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <div class="error-message" id="occupationError">
+                          Please select occupation
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">
+                          Annual Income (₹) <span class="required">*</span>
+                        </label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="editAnnualIncome"
+                          min="100000"
+                          step="50000"
+                          required
+                        />
+                        <div class="form-text">Minimum: ₹1,00,000 per year</div>
+                        <div class="error-message" id="incomeError">
+                          Please enter valid annual income
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Company/Organization</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="editCompany"
+                        />
+                      </div>
+                      <div class="form-group full-width">
+                        <label class="form-label">Address</label>
+                        <textarea
+                          class="form-control"
+                          id="editAddress"
+                          rows="3"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons (Edit Mode Only) -->
+            <div class="edit-mode" id="actionButtons" style="display: none">
+              <div class="form-actions">
+                <button class="btn btn-outline" onclick="cancelEdit()">
+                  Cancel
                 </button>
+                <button
+                  class="btn btn-success"
+                  onclick="saveProfile()"
+                  id="saveBtn"
+                >
+                  💾 Save Changes
+                </button>
+              </div>
             </div>
-
-            <!-- Success Message -->
-            <div class="success-message" id="successMessage">
-                ✅ Profile updated successfully!
-            </div>
-
-            <div class="profile-layout">
-                <!-- Profile Sidebar -->
-                <div class="profile-sidebar">
-                    <div class="profile-avatar" id="profileAvatar">JD</div>
-                    <div class="profile-name" id="profileName">John Doe</div>
-                    <div class="profile-email" id="profileEmail">john.doe@example.com</div>
-                    <div class="member-since" id="memberSince">
-                        Member since: Loading...
-                    </div>
-                </div>
-
-                <!-- Profile Content -->
-                <div class="profile-content">
-                    <!-- Personal Information -->
-                    <div class="profile-card">
-                        <div class="card-header">
-                            <h3>👤 Personal Information</h3>
-                        </div>
-                        <div class="card-body">
-                            <!-- View Mode -->
-                            <div class="view-mode" id="personalInfoView">
-                                <div class="info-grid">
-                                    <div class="info-item">
-                                        <span class="info-label">Full Name</span>
-                                        <span class="info-value" id="viewFullName">-</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Email Address</span>
-                                        <span class="info-value" id="viewEmail">-</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Phone Number</span>
-                                        <span class="info-value" id="viewPhone">-</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Date of Birth</span>
-                                        <span class="info-value" id="viewDob">-</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Edit Mode -->
-                            <div class="edit-mode" id="personalInfoEdit">
-                                <form id="personalInfoForm">
-                                    <div class="form-grid">
-                                        <div class="form-group">
-                                            <label class="form-label">
-                                                First Name <span class="required">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="editFirstName" required>
-                                            <div class="error-message" id="firstNameError">Please enter first name</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">
-                                                Last Name <span class="required">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="editLastName" required>
-                                            <div class="error-message" id="lastNameError">Please enter last name</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">
-                                                Email Address <span class="required">*</span>
-                                            </label>
-                                            <input type="email" class="form-control" id="editEmail" required disabled>
-                                            <div class="form-text">Email cannot be changed</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">
-                                                Phone Number <span class="required">*</span>
-                                            </label>
-                                            <input type="tel" class="form-control" id="editPhone" required>
-                                            <div class="error-message" id="phoneError">Please enter valid phone number</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Date of Birth</label>
-                                            <input type="date" class="form-control" id="editDob">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Employment & Financial Information -->
-                    <div class="profile-card">
-                        <div class="card-header">
-                            <h3>💼 Employment & Financial Information</h3>
-                        </div>
-                        <div class="card-body">
-                            <!-- View Mode -->
-                            <div class="view-mode" id="employmentInfoView">
-                                <div class="info-grid">
-                                    <div class="info-item">
-                                        <span class="info-label">Occupation</span>
-                                        <span class="info-value" id="viewOccupation">-</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Annual Income</span>
-                                        <span class="info-value" id="viewAnnualIncome">-</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Company/Organization</span>
-                                        <span class="info-value" id="viewCompany">-</span>
-                                    </div>
-                                    <div class="info-item full-width">
-                                        <span class="info-label">Address</span>
-                                        <span class="info-value" id="viewAddress">-</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Edit Mode -->
-                            <div class="edit-mode" id="employmentInfoEdit">
-                                <form id="employmentInfoForm">
-                                    <div class="form-grid">
-                                        <div class="form-group">
-                                            <label class="form-label">
-                                                Occupation <span class="required">*</span>
-                                            </label>
-                                            <select class="form-control" id="editOccupation" required>
-                                                <option value="">Select Occupation</option>
-                                                <option value="salaried">Salaried Employee</option>
-                                                <option value="business">Business Owner</option>
-                                                <option value="self_employed">Self Employed</option>
-                                                <option value="professional">Professional</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                            <div class="error-message" id="occupationError">Please select occupation</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">
-                                                Annual Income (₹) <span class="required">*</span>
-                                            </label>
-                                            <input type="number" class="form-control" id="editAnnualIncome" 
-                                                   min="100000" step="50000" required>
-                                            <div class="form-text">Minimum: ₹1,00,000 per year</div>
-                                            <div class="error-message" id="incomeError">Please enter valid annual income</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Company/Organization</label>
-                                            <input type="text" class="form-control" id="editCompany">
-                                        </div>
-                                        <div class="form-group full-width">
-                                            <label class="form-label">Address</label>
-                                            <textarea class="form-control" id="editAddress" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons (Edit Mode Only) -->
-                    <div class="edit-mode" id="actionButtons" style="display: none;">
-                        <div class="form-actions">
-                            <button class="btn btn-outline" onclick="cancelEdit()">Cancel</button>
-                            <button class="btn btn-success" onclick="saveProfile()" id="saveBtn">
-                                💾 Save Changes
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <script type="module">
-    import { API_BASE_URL } from './api.js';
+      import { API_BASE_URL } from "./api.js";
 
-    // Global vars..
-    let isEditMode = false;
-    let originalProfileData = null;
+      // Global vars..
+      let isEditMode = false;
+      let originalProfileData = null;
 
-    // Initialize page
-    function initializePage() {
+      // Initialize page
+      function initializePage() {
         checkAuth();
         loadProfile();
         setupEventListeners();
-    }
+      }
 
-    function checkAuth() {
-        const token = localStorage.getItem('authToken');
-        const role = localStorage.getItem('userRole');
-        
-        console.log('🔐 [Profile] Auth check:', { token: !!token, role });
-        
-        if (!token || role !== 'customer') {
-            window.location.href = 'login.html';
-            return;
+      function checkAuth() {
+        const token = localStorage.getItem("authToken");
+        const role = localStorage.getItem("userRole");
+
+        console.log(" [Profile] Auth check:", { token: !!token, role });
+
+        if (!token || role !== "customer") {
+          window.location.href = "login.html";
+          return;
         }
-    }
+      }
 
-    function setupEventListeners() {
+      function setupEventListeners() {
         // Edit button..
-        const editToggleBtn = document.getElementById('editToggleBtn');
+        const editToggleBtn = document.getElementById("editToggleBtn");
         if (editToggleBtn) {
-            editToggleBtn.addEventListener('click', toggleEditMode);
+          editToggleBtn.addEventListener("click", toggleEditMode);
         }
-        
+
         // Cancel button..
-        const cancelBtn = document.getElementById('cancelBtn');
+        const cancelBtn = document.getElementById("cancelBtn");
         if (cancelBtn) {
-            cancelBtn.addEventListener('click', cancelEdit);
+          cancelBtn.addEventListener("click", cancelEdit);
         }
-        
+
         // Save button..
-        const saveBtn = document.getElementById('saveBtn');
+        const saveBtn = document.getElementById("saveBtn");
         if (saveBtn) {
-            saveBtn.addEventListener('click', saveProfile);
+          saveBtn.addEventListener("click", saveProfile);
         }
 
-        const tryAgainBtn = document.querySelector('#errorState .btn');
+        const tryAgainBtn = document.querySelector("#errorState .btn");
         if (tryAgainBtn) {
-            tryAgainBtn.addEventListener('click', loadProfile);
+          tryAgainBtn.addEventListener("click", loadProfile);
         }
 
-        console.log(' Event listeners setup complete');
-    }
+        console.log(" Event listeners setup complete");
+      }
 
-    // Toggle edit mode
-    function toggleEditMode() {
+      function toggleEditMode() {
         isEditMode = !isEditMode;
-        
+
         if (isEditMode) {
-            enterEditMode();
+          enterEditMode();
         } else {
-            exitEditMode();
+          exitEditMode();
         }
-    }
+      }
 
-    function enterEditMode() {
-        const editToggleBtn = document.getElementById('editToggleBtn');
-        const actionButtons = document.getElementById('actionButtons');
-        
-        if (editToggleBtn) editToggleBtn.textContent = ' View Profile';
-        if (actionButtons) actionButtons.style.display = 'block';
-        
-        document.querySelectorAll('.view-mode').forEach(el => {
-            if (el.parentElement) {
-                el.parentElement.classList.add('edit-mode');
-            }
-        });
-    }
+      function enterEditMode() {
+        const editToggleBtn = document.getElementById("editToggleBtn");
+        const actionButtons = document.getElementById("actionButtons");
 
-    function exitEditMode() {
-        const editToggleBtn = document.getElementById('editToggleBtn');
-        const actionButtons = document.getElementById('actionButtons');
-        
-        if (editToggleBtn) editToggleBtn.textContent = 'Edit Profile';
-        if (actionButtons) actionButtons.style.display = 'none';
-        
-        document.querySelectorAll('.view-mode').forEach(el => {
-            if (el.parentElement) {
-                el.parentElement.classList.remove('edit-mode');
-            }
+        if (editToggleBtn) editToggleBtn.textContent = " View Profile";
+        if (actionButtons) actionButtons.style.display = "block";
+
+        document.querySelectorAll(".view-mode").forEach((el) => {
+          if (el.parentElement) {
+            el.parentElement.classList.add("edit-mode");
+          }
         });
-        
+      }
+
+      function exitEditMode() {
+        const editToggleBtn = document.getElementById("editToggleBtn");
+        const actionButtons = document.getElementById("actionButtons");
+
+        if (editToggleBtn) editToggleBtn.textContent = "Edit Profile";
+        if (actionButtons) actionButtons.style.display = "none";
+
+        document.querySelectorAll(".view-mode").forEach((el) => {
+          if (el.parentElement) {
+            el.parentElement.classList.remove("edit-mode");
+          }
+        });
+
         if (originalProfileData) {
-            populateEditForms(originalProfileData);
+          populateEditForms(originalProfileData);
         }
-    }
+      }
 
-    function cancelEdit() {
+      function cancelEdit() {
         exitEditMode();
-    }
+      }
 
-    async function loadProfile() {
+      async function loadProfile() {
         showLoading();
         hideError();
         hideContent();
 
         try {
-            const token = localStorage.getItem('authToken');
-            
-            console.log('[Profile] Fetching profile from:', `${API_BASE_URL}/customer/profile`);
-            
-            const response = await fetch(`${API_BASE_URL}/customer/profile`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+          const token = localStorage.getItem("authToken");
 
-            console.log(' [Profile] Response status:', response.status);
+          console.log(
+            "[Profile] Fetching profile from:",
+            `${API_BASE_URL}/customer/profile`
+          );
 
-            if (!response.ok) {
-                throw new Error(`Failed to fetch profile: ${response.status}`);
-            }
-
-            const result = await response.json();
-            console.log('[Profile] Full API response:', result);
-            
-            if (!result.success) {
-                throw new Error(result.message || 'Failed to load profile');
-            }
-            const profileData = result.data;
-            console.log('👤 [Profile] Profile data:', profileData);
-            
-            if (!profileData || !profileData.name) {
-                throw new Error('No profile data available');
-            }
-
-            displayProfile(profileData);
-            originalProfileData = profileData;
-            
-        } catch (error) {
-            console.error(' [Profile] Error loading profile:', error);
-            showError(error.message || 'Failed to load profile. Please try again.');
-        }
-    }
-
-    //  Profile data
-    function displayProfile(profileData) {
-        console.log('[Profile] Displaying profile data:', profileData);
-        
-        try {
-            const avatar = document.getElementById('profileAvatar');
-            const profileName = document.getElementById('profileName');
-            const profileEmail = document.getElementById('profileEmail');
-            const memberSince = document.getElementById('memberSince');
-            
-            if (avatar && profileData.name) avatar.textContent = getInitials(profileData.name);
-            if (profileName) profileName.textContent = profileData.name || 'Not available';
-            if (profileEmail) profileEmail.textContent = profileData.email || 'Not available';
-            if (memberSince) memberSince.textContent = `Member since: ${formatDate(profileData.createdAt) || 'Unknown'}`;
-
-            const viewFullName = document.getElementById('viewFullName');
-            const viewEmail = document.getElementById('viewEmail');
-            const viewPhone = document.getElementById('viewPhone');
-            const viewDob = document.getElementById('viewDob');
-            
-            if (viewFullName) viewFullName.textContent = profileData.name || 'Not available';
-            if (viewEmail) viewEmail.textContent = profileData.email || 'Not available';
-            if (viewPhone) viewPhone.textContent = profileData.phone || 'Not provided';
-            if (viewDob) viewDob.textContent = profileData.dateOfBirth ? formatDate(profileData.dateOfBirth) : 'Not provided';
-
-            const viewOccupation = document.getElementById('viewOccupation');
-            const viewAnnualIncome = document.getElementById('viewAnnualIncome');
-            const viewCompany = document.getElementById('viewCompany');
-            const viewAddress = document.getElementById('viewAddress');
-            
-            if (viewOccupation) viewOccupation.textContent = formatOccupation(profileData.occupation) || 'Not provided';
-            if (viewAnnualIncome) viewAnnualIncome.textContent = formatCurrency(profileData.annualIncome) || 'Not provided';
-            if (viewCompany) viewCompany.textContent = profileData.company || 'Not provided';
-            if (viewAddress) viewAddress.textContent = profileData.address || 'Not provided';
-
-            // Fill  edit forms
-            populateEditForms(profileData);
-
-            hideLoading();
-            showContent();
-            
-        } catch (error) {
-            console.error('[Profile] Error displaying profile:', error);
-            showError('Error displaying profile data: ' + error.message);
-        }
-    }
-
-    // Populate edit forms with current data
-    function populateEditForms(profileData) {
-        console.log('[Profile] Populating edit forms:', profileData);
-        
-        const nameParts = profileData.name ? profileData.name.split(' ') : ['', ''];
-        
-        const editFirstName = document.getElementById('editFirstName');
-        const editLastName = document.getElementById('editLastName');
-        const editEmail = document.getElementById('editEmail');
-        const editPhone = document.getElementById('editPhone');
-        const editDob = document.getElementById('editDob');
-        const editOccupation = document.getElementById('editOccupation');
-        const editAnnualIncome = document.getElementById('editAnnualIncome');
-        const editCompany = document.getElementById('editCompany');
-        const editAddress = document.getElementById('editAddress');
-        
-        if (editFirstName) editFirstName.value = nameParts[0] || '';
-        if (editLastName) editLastName.value = nameParts.slice(1).join(' ') || '';
-        if (editEmail) editEmail.value = profileData.email || '';
-        if (editPhone) editPhone.value = profileData.phone || '';
-        if (editDob) editDob.value = profileData.dateOfBirth || '';
-        if (editOccupation) editOccupation.value = profileData.occupation || '';
-        if (editAnnualIncome) editAnnualIncome.value = profileData.annualIncome || '';
-        if (editCompany) editCompany.value = profileData.company || '';
-        if (editAddress) editAddress.value = profileData.address || '';
-    }
-
-    // Save profile changes
-async function saveProfile() {
-    if (!validateForms()) {
-        return;
-    }
-
-    const saveBtn = document.getElementById('saveBtn');
-    if (saveBtn) {
-        saveBtn.classList.add('btn-loading');
-        saveBtn.disabled = true;
-        saveBtn.innerHTML = 'Saving...';
-    }
-
-    try {
-        const formData = {
-            name: document.getElementById('editFirstName').value.trim() + ' ' + document.getElementById('editLastName').value.trim(),
-            phone: document.getElementById('editPhone').value.trim() || null,
-            occupation: document.getElementById('editOccupation').value || null,
-            annualIncome: document.getElementById('editAnnualIncome').value ? parseFloat(document.getElementById('editAnnualIncome').value) : null,
-            company: document.getElementById('editCompany').value.trim() || null,
-            address: document.getElementById('editAddress').value.trim() || null
-        };
-
-        const dobValue = document.getElementById('editDob').value;
-        formData.dateOfBirth = dobValue && dobValue.trim() !== '' ? dobValue : null;
-
-        console.log('[Profile] Final form data being sent:', formData);
-
-        Object.keys(formData).forEach(key => {
-            if (formData[key] === undefined) {
-                formData[key] = null;
-                console.log(`[Profile] Converted undefined to null for: ${key}`);
-            }
-        });
-
-        const token = localStorage.getItem('authToken');
-        const response = await fetch(`${API_BASE_URL}/customer/profile`, {
-            method: 'PUT',
+          const response = await fetch(`${API_BASE_URL}/customer/profile`, {
+            method: "GET",
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData)
-        });
+          });
 
-        console.log('[Profile] Update response status:', response.status);
+          console.log(" [Profile] Response status:", response.status);
 
-        if (!response.ok) {
+          if (!response.ok) {
+            throw new Error(`Failed to fetch profile: ${response.status}`);
+          }
+
+          const result = await response.json();
+          console.log("[Profile] Full API response:", result);
+
+          if (!result.success) {
+            throw new Error(result.message || "Failed to load profile");
+          }
+          const profileData = result.data;
+          console.log("[Profile] Profile data:", profileData);
+
+          if (!profileData || !profileData.name) {
+            throw new Error("No profile data available");
+          }
+
+          displayProfile(profileData);
+          originalProfileData = profileData;
+        } catch (error) {
+          console.error(" [Profile] Error loading profile:", error);
+          showError(
+            error.message || "Failed to load profile. Please try again."
+          );
+        }
+      }
+
+      function displayProfile(profileData) {
+        console.log("[Profile] Displaying profile data:", profileData);
+
+        try {
+          const avatar = document.getElementById("profileAvatar");
+          const profileName = document.getElementById("profileName");
+          const profileEmail = document.getElementById("profileEmail");
+          const memberSince = document.getElementById("memberSince");
+
+          if (avatar && profileData.name)
+            avatar.textContent = getInitials(profileData.name);
+          if (profileName)
+            profileName.textContent = profileData.name || "Not available";
+          if (profileEmail)
+            profileEmail.textContent = profileData.email || "Not available";
+          if (memberSince)
+            memberSince.textContent = `Member since: ${
+              formatDate(profileData.createdAt) || "Unknown"
+            }`;
+
+          const viewFullName = document.getElementById("viewFullName");
+          const viewEmail = document.getElementById("viewEmail");
+          const viewPhone = document.getElementById("viewPhone");
+          const viewDob = document.getElementById("viewDob");
+
+          if (viewFullName)
+            viewFullName.textContent = profileData.name || "Not available";
+          if (viewEmail)
+            viewEmail.textContent = profileData.email || "Not available";
+          if (viewPhone)
+            viewPhone.textContent = profileData.phone || "Not provided";
+          if (viewDob)
+            viewDob.textContent = profileData.dateOfBirth
+              ? formatDate(profileData.dateOfBirth)
+              : "Not provided";
+
+          const viewOccupation = document.getElementById("viewOccupation");
+          const viewAnnualIncome = document.getElementById("viewAnnualIncome");
+          const viewCompany = document.getElementById("viewCompany");
+          const viewAddress = document.getElementById("viewAddress");
+
+          if (viewOccupation)
+            viewOccupation.textContent =
+              formatOccupation(profileData.occupation) || "Not provided";
+          if (viewAnnualIncome)
+            viewAnnualIncome.textContent =
+              formatCurrency(profileData.annualIncome) || "Not provided";
+          if (viewCompany)
+            viewCompany.textContent = profileData.company || "Not provided";
+          if (viewAddress)
+            viewAddress.textContent = profileData.address || "Not provided";
+
+          populateEditForms(profileData);
+
+          hideLoading();
+          showContent();
+        } catch (error) {
+          console.error("[Profile] Error displaying profile:", error);
+          showError("Error displaying profile data: " + error.message);
+        }
+      }
+
+      function populateEditForms(profileData) {
+        console.log("[Profile] Populating edit forms:", profileData);
+
+        const nameParts = profileData.name
+          ? profileData.name.split(" ")
+          : ["", ""];
+
+        const editFirstName = document.getElementById("editFirstName");
+        const editLastName = document.getElementById("editLastName");
+        const editEmail = document.getElementById("editEmail");
+        const editPhone = document.getElementById("editPhone");
+        const editDob = document.getElementById("editDob");
+        const editOccupation = document.getElementById("editOccupation");
+        const editAnnualIncome = document.getElementById("editAnnualIncome");
+        const editCompany = document.getElementById("editCompany");
+        const editAddress = document.getElementById("editAddress");
+
+        if (editFirstName) editFirstName.value = nameParts[0] || "";
+        if (editLastName)
+          editLastName.value = nameParts.slice(1).join(" ") || "";
+        if (editEmail) editEmail.value = profileData.email || "";
+        if (editPhone) editPhone.value = profileData.phone || "";
+        if (editDob) editDob.value = profileData.dateOfBirth || "";
+        if (editOccupation) editOccupation.value = profileData.occupation || "";
+        if (editAnnualIncome)
+          editAnnualIncome.value = profileData.annualIncome || "";
+        if (editCompany) editCompany.value = profileData.company || "";
+        if (editAddress) editAddress.value = profileData.address || "";
+      }
+
+      // Save profile changes
+      async function saveProfile() {
+        if (!validateForms()) {
+          return;
+        }
+
+        const saveBtn = document.getElementById("saveBtn");
+        if (saveBtn) {
+          saveBtn.classList.add("btn-loading");
+          saveBtn.disabled = true;
+          saveBtn.innerHTML = "Saving...";
+        }
+
+        try {
+          const formData = {
+            name:
+              document.getElementById("editFirstName").value.trim() +
+              " " +
+              document.getElementById("editLastName").value.trim(),
+            phone: document.getElementById("editPhone").value.trim() || null,
+            occupation: document.getElementById("editOccupation").value || null,
+            annualIncome: document.getElementById("editAnnualIncome").value
+              ? parseFloat(document.getElementById("editAnnualIncome").value)
+              : null,
+            company:
+              document.getElementById("editCompany").value.trim() || null,
+            address:
+              document.getElementById("editAddress").value.trim() || null,
+          };
+
+          const dobValue = document.getElementById("editDob").value;
+          formData.dateOfBirth =
+            dobValue && dobValue.trim() !== "" ? dobValue : null;
+
+          console.log("[Profile] Final form data being sent:", formData);
+
+          Object.keys(formData).forEach((key) => {
+            if (formData[key] === undefined) {
+              formData[key] = null;
+              console.log(`[Profile] Converted undefined to null for: ${key}`);
+            }
+          });
+
+          const token = localStorage.getItem("authToken");
+          const response = await fetch(`${API_BASE_URL}/customer/profile`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+
+          console.log("[Profile] Update response status:", response.status);
+
+          if (!response.ok) {
             let errorData;
             try {
-                errorData = await response.json();
-                console.error(' [Profile] Update error response:', errorData);
+              errorData = await response.json();
+              console.error(" [Profile] Update error response:", errorData);
             } catch (e) {
-                console.error(' [Profile] Update error (no JSON):', await response.text());
+              console.error(
+                " [Profile] Update error (no JSON):",
+                await response.text()
+              );
             }
-            throw new Error(errorData?.message || `Failed to update profile: ${response.status}`);
-        }
+            throw new Error(
+              errorData?.message ||
+                `Failed to update profile: ${response.status}`
+            );
+          }
 
-        const result = await response.json();
-        console.log('[Profile] Update successful:', result);
-        
-        if (!result.success) {
-            throw new Error(result.message || 'Profile update failed');
-        }
+          const result = await response.json();
+          console.log("[Profile] Update successful:", result);
 
-        const successMessage = document.getElementById('successMessage');
-        if (successMessage) {
-            successMessage.style.display = 'block';
-            successMessage.textContent = 'Profile updated successfully!';
-        }
-        
-        const updatedProfile = result.data.user || result.data;
-        displayProfile(updatedProfile);
-        originalProfileData = updatedProfile;
-        
-        if (formData.name) {
-            localStorage.setItem('userName', formData.name);
-        }
-        
-        exitEditMode();
-        
-        setTimeout(() => {
-            if (successMessage) successMessage.style.display = 'none';
-        }, 3000);
-        
-    } catch (error) {
-        console.error('[Profile] Error updating profile:', error);
-        alert('Failed to update profile: ' + error.message);
-    } finally {
-        if (saveBtn) {
-            saveBtn.classList.remove('btn-loading');
+          if (!result.success) {
+            throw new Error(result.message || "Profile update failed");
+          }
+
+          const successMessage = document.getElementById("successMessage");
+          if (successMessage) {
+            successMessage.style.display = "block";
+            successMessage.textContent = "Profile updated successfully!";
+          }
+
+          const updatedProfile = result.data.user || result.data;
+          displayProfile(updatedProfile);
+          originalProfileData = updatedProfile;
+
+          if (formData.name) {
+            localStorage.setItem("userName", formData.name);
+          }
+
+          exitEditMode();
+
+          setTimeout(() => {
+            if (successMessage) successMessage.style.display = "none";
+          }, 3000);
+        } catch (error) {
+          console.error("[Profile] Error updating profile:", error);
+          alert("Failed to update profile: " + error.message);
+        } finally {
+          if (saveBtn) {
+            saveBtn.classList.remove("btn-loading");
             saveBtn.disabled = false;
-            saveBtn.innerHTML = 'Save Changes';
+            saveBtn.innerHTML = "Save Changes";
+          }
         }
-    }
-}
+      }
 
-function validateForms() {
+      function validateForms() {
         let isValid = true;
-        
-        document.querySelectorAll('.error-message').forEach(error => {
-            error.style.display = 'none';
+
+        document.querySelectorAll(".error-message").forEach((error) => {
+          error.style.display = "none";
         });
-        document.querySelectorAll('.form-control').forEach(input => {
-            input.classList.remove('error');
+        document.querySelectorAll(".form-control").forEach((input) => {
+          input.classList.remove("error");
         });
 
-        const firstName = document.getElementById('editFirstName').value.trim();
-        const lastName = document.getElementById('editLastName').value.trim();
-        const phone = document.getElementById('editPhone').value.trim();
+        const firstName = document.getElementById("editFirstName").value.trim();
+        const lastName = document.getElementById("editLastName").value.trim();
+        const phone = document.getElementById("editPhone").value.trim();
 
         if (!firstName) {
-            showFieldError('editFirstName', 'firstNameError', 'First name is required');
-            isValid = false;
+          showFieldError(
+            "editFirstName",
+            "firstNameError",
+            "First name is required"
+          );
+          isValid = false;
         }
 
         if (!lastName) {
-            showFieldError('editLastName', 'lastNameError', 'Last name is required');
-            isValid = false;
+          showFieldError(
+            "editLastName",
+            "lastNameError",
+            "Last name is required"
+          );
+          isValid = false;
         }
 
         if (!phone) {
-            showFieldError('editPhone', 'phoneError', 'Phone number is required');
-            isValid = false;
+          showFieldError("editPhone", "phoneError", "Phone number is required");
+          isValid = false;
         } else if (!validatePhone(phone)) {
-            showFieldError('editPhone', 'phoneError', 'Please enter a valid phone number');
-            isValid = false;
+          showFieldError(
+            "editPhone",
+            "phoneError",
+            "Please enter a valid phone number"
+          );
+          isValid = false;
         }
 
-        const occupation = document.getElementById('editOccupation').value;
-        const annualIncome = document.getElementById('editAnnualIncome').value;
+        const occupation = document.getElementById("editOccupation").value;
+        const annualIncome = document.getElementById("editAnnualIncome").value;
 
         if (!occupation) {
-            showFieldError('editOccupation', 'occupationError', 'Occupation is required');
-            isValid = false;
+          showFieldError(
+            "editOccupation",
+            "occupationError",
+            "Occupation is required"
+          );
+          isValid = false;
         }
 
         if (!annualIncome || annualIncome < 100000) {
-            showFieldError('editAnnualIncome', 'incomeError', 'Annual income must be at least ₹1,00,000');
-            isValid = false;
+          showFieldError(
+            "editAnnualIncome",
+            "incomeError",
+            "Annual income must be at least ₹1,00,000"
+          );
+          isValid = false;
         }
 
         return isValid;
-    }
+      }
 
-    function showFieldError(fieldId, errorId, message) {
+      function showFieldError(fieldId, errorId, message) {
         const field = document.getElementById(fieldId);
         const error = document.getElementById(errorId);
-        
-        if (field) field.classList.add('error');
+
+        if (field) field.classList.add("error");
         if (error) {
-            error.textContent = message;
-            error.style.display = 'block';
+          error.textContent = message;
+          error.style.display = "block";
         }
-    }
+      }
 
-    function validatePhone(phone) {
+      function validatePhone(phone) {
         const phoneRegex = /^[6-9]\d{9}$/;
-        return phoneRegex.test(phone.replace(/\D/g, ''));
-    }
+        return phoneRegex.test(phone.replace(/\D/g, ""));
+      }
 
-    // Utility functions
-    function getInitials(name) {
-        if (!name) return '?';
+      // Utility functions
+      function getInitials(name) {
+        if (!name) return "?";
         try {
-            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+          return name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase();
         } catch (error) {
-            console.error('Error generating initials:', error);
-            return '?';
+          console.error("Error generating initials:", error);
+          return "?";
         }
-    }
+      }
 
-    function formatDate(dateString) {
-        if (!dateString) return 'Not provided';
+      function formatDate(dateString) {
+        if (!dateString) return "Not provided";
         try {
-            return new Date(dateString).toLocaleDateString('en-IN', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+          return new Date(dateString).toLocaleDateString("en-IN", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
         } catch (error) {
-            console.error('Error formatting date:', error);
-            return 'Invalid date';
+          console.error("Error formatting date:", error);
+          return "Invalid date";
         }
-    }
+      }
 
-    function formatCurrency(amount) {
-        if (!amount || isNaN(amount)) return 'Not provided';
+      function formatCurrency(amount) {
+        if (!amount || isNaN(amount)) return "Not provided";
         try {
-            return new Intl.NumberFormat('en-IN', {
-                style: 'currency',
-                currency: 'INR',
-                maximumFractionDigits: 0
-            }).format(amount);
+          return new Intl.NumberFormat("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 0,
+          }).format(amount);
         } catch (error) {
-            console.error('Error formatting currency:', error);
-            return 'Invalid amount';
+          console.error("Error formatting currency:", error);
+          return "Invalid amount";
         }
-    }
+      }
 
-    function formatOccupation(occupation) {
+      function formatOccupation(occupation) {
         const occupations = {
-            'salaried': 'Salaried Employee',
-            'business': 'Business Owner',
-            'self_employed': 'Self Employed',
-            'professional': 'Professional'
+          salaried: "Salaried Employee",
+          business: "Business Owner",
+          self_employed: "Self Employed",
+          professional: "Professional",
         };
-        return occupations[occupation] || occupation || 'Not provided';
-    }
+        return occupations[occupation] || occupation || "Not provided";
+      }
 
-    // UI state management
-    function showLoading() {
-        const loadingState = document.getElementById('loadingState');
-        if (loadingState) loadingState.style.display = 'block';
-    }
+      // UI state management
+      function showLoading() {
+        const loadingState = document.getElementById("loadingState");
+        if (loadingState) loadingState.style.display = "block";
+      }
 
-    function hideLoading() {
-        const loadingState = document.getElementById('loadingState');
-        if (loadingState) loadingState.style.display = 'none';
-    }
+      function hideLoading() {
+        const loadingState = document.getElementById("loadingState");
+        if (loadingState) loadingState.style.display = "none";
+      }
 
-    function showError(message) {
-        const errorState = document.getElementById('errorState');
-        const errorMessage = document.getElementById('errorMessage');
-        const loadingState = document.getElementById('loadingState');
-        
-        if (errorState) errorState.style.display = 'block';
+      function showError(message) {
+        const errorState = document.getElementById("errorState");
+        const errorMessage = document.getElementById("errorMessage");
+        const loadingState = document.getElementById("loadingState");
+
+        if (errorState) errorState.style.display = "block";
         if (errorMessage) errorMessage.textContent = message;
-        if (loadingState) loadingState.style.display = 'none';
-    }
+        if (loadingState) loadingState.style.display = "none";
+      }
 
-    function hideError() {
-        const errorState = document.getElementById('errorState');
-        if (errorState) errorState.style.display = 'none';
-    }
+      function hideError() {
+        const errorState = document.getElementById("errorState");
+        if (errorState) errorState.style.display = "none";
+      }
 
-    function showContent() {
-        const profileContent = document.getElementById('profileContent');
-        if (profileContent) profileContent.style.display = 'block';
-    }
+      function showContent() {
+        const profileContent = document.getElementById("profileContent");
+        if (profileContent) profileContent.style.display = "block";
+      }
 
-    function hideContent() {
-        const profileContent = document.getElementById('profileContent');
-        if (profileContent) profileContent.style.display = 'none';
-    }
+      function hideContent() {
+        const profileContent = document.getElementById("profileContent");
+        if (profileContent) profileContent.style.display = "none";
+      }
 
-    // Initialize the page
-    document.addEventListener('DOMContentLoaded', initializePage);
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", initializePage);
 
-    window.toggleEditMode = toggleEditMode;
-    window.cancelEdit = cancelEdit;
-    window.saveProfile = saveProfile;
-</script>
-</body> 
+      window.toggleEditMode = toggleEditMode;
+      window.cancelEdit = cancelEdit;
+      window.saveProfile = saveProfile;
+    </script>
+  </body>
 </html>

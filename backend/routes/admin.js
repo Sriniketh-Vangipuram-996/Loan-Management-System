@@ -52,16 +52,13 @@ router.put('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
 router.put('/users/:id/role', updateUserRole);
 
-// User Loans (if you added this function)
-// router.get('/users/:id/loans', getUserLoans);
-
 // Admin Profile Management
 router.put('/profile', updateAdminProfile);
 router.put('/change-password', changeAdminPassword);
 
 // System Settings
-router.get('/settings', getSystemSettings); // Get all settings
-router.put('/settings/system', updateSystemSettings); // Update system settings
-router.put('/settings/loan', updateLoanSettings); // Update loan settings
+router.get('/settings', getSystemSettings); 
+router.put('/settings/system', updateSystemSettings); 
+router.put('/settings/loan', updateLoanSettings); 
 
 module.exports = router;

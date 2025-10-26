@@ -1,395 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - LoanEase</title>
-  <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - LoanEase</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-        }
+      .container {
+        width: 100%;
+        max-width: 420px;
+      }
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
 
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
 
-        .logo-icon {
-            background: white;
-            color: #667eea;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
+      .logo-icon {
+        background: white;
+        color: #667eea;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
 
-        .header h1 {
-            color: white;
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
+      .header h1 {
+        color: white;
+        font-size: 2rem;
+        margin-bottom: 8px;
+      }
 
-        .header p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
-        }
+      .header p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.1rem;
+      }
 
-        /* Login Card */
+      /* Login Card */
+      .login-card {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #5a6fd8;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid #667eea;
+        color: #667eea;
+      }
+
+      .btn-outline:hover {
+        background: #667eea;
+        color: white;
+      }
+
+      .links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+      }
+
+      .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #555;
+      }
+
+      .remember-me input {
+        width: 16px;
+        height: 16px;
+      }
+
+      .forgot-password {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .forgot-password:hover {
+        text-decoration: underline;
+      }
+
+      .register-link {
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+      }
+
+      .register-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .register-link a:hover {
+        text-decoration: underline;
+      }
+
+      .admin-link {
+        text-align: center;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #e1e5e9;
+      }
+
+      .admin-link a {
+        color: #764ba2;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .admin-link a:hover {
+        text-decoration: underline;
+      }
+
+      /* Error Message */
+      .error-message {
+        background: #fee;
+        color: #c33;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+        display: none;
+        border: 1px solid #fcc;
+      }
+
+      .input-error {
+        border-color: #e74c3c !important;
+      }
+
+      /* Loading State */
+      .btn-loading {
+        position: relative;
+        color: transparent;
+      }
+
+      .btn-loading::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        left: 50%;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 480px) {
         .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #667eea;
-            color: #667eea;
-        }
-
-        .btn-outline:hover {
-            background: #667eea;
-            color: white;
+          padding: 30px 25px;
         }
 
         .links {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0;
+          flex-direction: column;
+          gap: 15px;
+          align-items: flex-start;
         }
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #555;
+        .header h1 {
+          font-size: 1.7rem;
         }
-
-        .remember-me input {
-            width: 16px;
-            height: 16px;
-        }
-
-        .forgot-password {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 25px;
-            color: #666;
-        }
-
-        .register-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        .admin-link {
-            text-align: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e1e5e9;
-        }
-
-        .admin-link a {
-            color: #764ba2;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .admin-link a:hover {
-            text-decoration: underline;
-        }
-
-        /* Error Message */
-        .error-message {
-            background: #fee;
-            color: #c33;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            text-align: center;
-            display: none;
-            border: 1px solid #fcc;
-        }
-
-        .input-error {
-            border-color: #e74c3c !important;
-        }
-
-        /* Loading State */
-        .btn-loading {
-            position: relative;
-            color: transparent;
-        }
-
-        .btn-loading::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            top: 50%;
-            left: 50%;
-            margin: -10px 0 0 -10px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 30px 25px;
-            }
-            
-            .links {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .header h1 {
-                font-size: 1.7rem;
-            }
-        }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <div class="logo">
-        <div class="logo-icon">L</div>
-        <span>LoanEase</span>
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <div class="logo-icon">L</div>
+          <span>LoanEase</span>
+        </div>
+        <h1>Welcome Back</h1>
+        <p>Sign in to your account</p>
       </div>
-      <h1>Welcome Back</h1>
-      <p>Sign in to your account</p>
+
+      <!-- Login Card -->
+      <div class="login-card">
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">
+          Invalid email or password. Please try again.
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="Enter your email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <div class="links">
+            <label class="remember-me">
+              <input type="checkbox" id="rememberMe" />
+              Remember me
+            </label>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="loginBtn">
+            Sign In
+          </button>
+        </form>
+
+        <div class="register-link">
+          Don't have an account? <a href="./register.html">Create Account</a>
+        </div>
+
+        <div class="admin-link">
+          <a href="./admin-login.html">Are you an admin? Sign in here</a>
+        </div>
+
+        <button class="btn btn-outline" onclick="location.href='./index.html'">
+          ← Back to Home
+        </button>
+      </div>
     </div>
 
-    <!-- Login Card -->
-    <div class="login-card">
+    <script type="module">
+      import { API_BASE_URL } from "./api.js";
 
-      <!-- Error Message -->
-      <div class="error-message" id="errorMessage">
-        Invalid email or password. Please try again.
-      </div>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("loginForm");
+        const loginBtn = document.getElementById("loginBtn");
+        const errorMessage = document.getElementById("errorMessage");
 
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required placeholder="Enter your email">
-        </div>
+        console.log("[Login] Starting login page");
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required placeholder="Enter your password">
-        </div>
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-        <div class="links">
-          <label class="remember-me">
-            <input type="checkbox" id="rememberMe">
-            Remember me
-          </label>
-          <a href="#" class="forgot-password">Forgot password?</a>
-        </div>
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value;
 
-        <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
-      </form>
+          if (!email || !password) {
+            showError("Please enter both email and password");
+            return;
+          }
 
-      <div class="register-link">
-        Don't have an account? <a href="./register.html">Create Account</a>
-      </div>
+          loginBtn.classList.add("btn-loading");
+          loginBtn.disabled = true;
+          loginBtn.textContent = "Signing In...";
 
-      <div class="admin-link">
-        <a href="./admin-login.html">Are you an admin? Sign in here</a>
-      </div>
+          try {
+            console.log("[Login] Attempting login for:", email);
 
-      <button class="btn btn-outline" onclick="location.href='./index.html'">
-        ← Back to Home
-      </button>
-    </div>
-  </div>
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, password }),
+            });
 
-<script type="module">
-    import { API_BASE_URL } from './api.js';
+            console.log("[Login] Response status:", response.status);
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('loginForm');
-        const loginBtn = document.getElementById('loginBtn');
-        const errorMessage = document.getElementById('errorMessage');
+            const data = await response.json();
+            console.log("[Login] Response data:", data);
 
-        console.log('🔐 [Login] Starting login page');
+            if (response.ok && data.success) {
+              const token = data.data?.token || data.token;
+              const user = data.data?.user || data.user;
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+              console.log("[Login] Extracted:", {
+                token: !!token,
+                user: !!user,
+              });
 
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
+              if (token && user) {
+                localStorage.setItem("authToken", token);
+                localStorage.setItem("userRole", user.role || "customer");
+                localStorage.setItem("userName", user.name || "Customer");
 
-            if (!email || !password) {
-                showError('Please enter both email and password');
+                console.log(
+                  "[Login] Saved to localStorage - Token:",
+                  !!localStorage.getItem("authToken")
+                );
+                console.log("[Login] Role:", localStorage.getItem("userRole"));
+                console.log("[Login] Name:", localStorage.getItem("userName"));
+                console.log(
+                  " [Login] SUCCESS - Redirecting immediately to dashboard"
+                );
+                window.location.href = "./customer-dashboard.html";
                 return;
+              }
             }
 
-            loginBtn.classList.add('btn-loading');
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Signing In...';
-
-            try {
-                console.log('[Login] Attempting login for:', email);
-                
-                const response = await fetch(`${API_BASE_URL}/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password }),
-                });
-
-                console.log('[Login] Response status:', response.status);
-
-                const data = await response.json();
-                console.log('[Login] Response data:', data);
-
-                if (response.ok && data.success) {
-                    const token = data.data?.token || data.token;
-                    const user = data.data?.user || data.user;
-
-                    console.log('🔑 [Login] Extracted:', { token: !!token, user: !!user });
-
-                    if (token && user) {
-                        localStorage.setItem('authToken', token);
-                        localStorage.setItem('userRole', user.role || 'customer');
-                        localStorage.setItem('userName', user.name || 'Customer');
-                        
-                        console.log('[Login] Saved to localStorage - Token:', !!localStorage.getItem('authToken'));
-                        console.log('[Login] Role:', localStorage.getItem('userRole'));
-                        console.log('[Login] Name:', localStorage.getItem('userName'));
-                        console.log('✅ [Login] SUCCESS - Redirecting immediately to dashboard');
-                        window.location.href = './customer-dashboard.html';
-                        return;
-                    }
-                }
-
-                // login failed msg
-                console.log('[Login] Failed:', data.message);
-                showError(data.message || 'Login failed');
-
-            } catch (error) {
-                console.error('[Login] Error:', error);
-                showError('Network error. Please try again.');
-            } finally {
-                loginBtn.classList.remove('btn-loading');
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Sign In';
-            }
+            // login failed msg
+            console.log("[Login] Failed:", data.message);
+            showError(data.message || "Login failed");
+          } catch (error) {
+            console.error("[Login] Error:", error);
+            showError("Network error. Please try again.");
+          } finally {
+            loginBtn.classList.remove("btn-loading");
+            loginBtn.disabled = false;
+            loginBtn.textContent = "Sign In";
+          }
         });
 
         function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
-            setTimeout(() => {
-                errorMessage.style.display = 'none';
-            }, 5000);
+          errorMessage.textContent = message;
+          errorMessage.style.display = "block";
+          setTimeout(() => {
+            errorMessage.style.display = "none";
+          }, 5000);
         }
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>

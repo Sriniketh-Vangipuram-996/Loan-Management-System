@@ -1,467 +1,534 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - LoanEase</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
 
-        .container {
-            width: 100%;
-            max-width: 450px;
-        }
+      .container {
+        width: 100%;
+        max-width: 450px;
+      }
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
 
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
 
-        .logo-icon {
-            background: white;
-            color: #667eea;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
+      .logo-icon {
+        background: white;
+        color: #667eea;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
 
-        .header h1 {
-            color: white;
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
+      .header h1 {
+        color: white;
+        font-size: 2rem;
+        margin-bottom: 8px;
+      }
 
-        .header p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
-        }
+      .header p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.1rem;
+      }
 
-        /* Registration Card */
+      /* Registration Card */
+      .register-card {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #5a6fd8;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid #667eea;
+        color: #667eea;
+      }
+
+      .btn-outline:hover {
+        background: #667eea;
+        color: white;
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+      }
+
+      .login-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+
+      /* Error Message */
+      .error-message {
+        color: #e74c3c;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .input-error {
+        border-color: #e74c3c !important;
+      }
+
+      /* Success Message */
+      .success-message {
+        background: #d4edda;
+        color: #155724;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+        display: none;
+      }
+
+      /* Loading State */
+      .btn-loading {
+        position: relative;
+        color: transparent;
+      }
+
+      .btn-loading::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        left: 50%;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 480px) {
         .register-card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+          padding: 30px 25px;
         }
 
         .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+          grid-template-columns: 1fr;
+          gap: 0;
         }
 
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
+        .header h1 {
+          font-size: 1.7rem;
         }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5a6fd8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #667eea;
-            color: #667eea;
-        }
-
-        .btn-outline:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        .login-link {
-            text-align: center;
-            margin-top: 25px;
-            color: #666;
-        }
-
-        .login-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-
-        /* Error Message */
-        .error-message {
-            color: #e74c3c;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .input-error {
-            border-color: #e74c3c !important;
-        }
-
-        /* Success Message */
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            text-align: center;
-            display: none;
-        }
-
-        /* Loading State */
-        .btn-loading {
-            position: relative;
-            color: transparent;
-        }
-
-        .btn-loading::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            top: 50%;
-            left: 50%;
-            margin: -10px 0 0 -10px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .register-card {
-                padding: 30px 25px;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-            
-            .header h1 {
-                font-size: 1.7rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon">L</div>
-                <span>LoanEase</span>
-            </div>
-            <h1>Create Account</h1>
-            <p>Join thousands of satisfied customers</p>
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <div class="logo-icon">L</div>
+          <span>LoanEase</span>
+        </div>
+        <h1>Create Account</h1>
+        <p>Join thousands of satisfied customers</p>
+      </div>
+
+      <!-- Registration Card -->
+      <div class="register-card">
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+          Registration successful! Redirecting to login...
         </div>
 
-        <!-- Registration Card -->
-        <div class="register-card">
-            <!-- Success Message -->
-            <div class="success-message" id="successMessage">
-                Registration successful! Redirecting to login...
+        <form id="registrationForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" required />
+              <div class="error-message" id="firstNameError">
+                Please enter your first name
+              </div>
             </div>
-
-            <form id="registrationForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" required>
-                        <div class="error-message" id="firstNameError">Please enter your first name</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" required>
-                        <div class="error-message" id="lastNameError">Please enter your last name</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                    <div class="error-message" id="emailError">Please enter a valid email address</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required>
-                    <div class="error-message" id="phoneError">Please enter a valid phone number</div>
-                </div>
-
-                <div class="form-group">
-                     <label for="occupation">Occupation</label>
-                     <select id="occupation" name="occupation" required>
-                        <option value="">Select Occupation</option>
-                        <option value="salaried">Salaried Employee</option>
-                        <option value="business">Business Owner</option>
-                        <option value="professional">Professional</option>
-                        <option value="self_employed">Self Employed</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <div class="error-message" id="occupationError">Please select your occupation</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="annualIncome">Annual Income (₹)</label>
-                    <input type="number" id="annualIncome" name="annualIncome" min="100000" required>
-                    <div class="error-message" id="incomeError">Please enter valid annual income</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required minlength="6">
-                    <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required>
-                    <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" id="submitBtn">
-                    Create Account
-                </button>
-            </form>
-
-            <div class="login-link">
-                Already have an account? <a href="./login.html">Sign In</a>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" required />
+              <div class="error-message" id="lastNameError">
+                Please enter your last name
+              </div>
             </div>
+          </div>
 
-            <button class="btn btn-outline" onclick="location.href='./index.html'">
-                ← Back to Home
-            </button>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required />
+            <div class="error-message" id="emailError">
+              Please enter a valid email address
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
+            <div class="error-message" id="phoneError">
+              Please enter a valid phone number
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="occupation">Occupation</label>
+            <select id="occupation" name="occupation" required>
+              <option value="">Select Occupation</option>
+              <option value="salaried">Salaried Employee</option>
+              <option value="business">Business Owner</option>
+              <option value="professional">Professional</option>
+              <option value="self_employed">Self Employed</option>
+              <option value="other">Other</option>
+            </select>
+            <div class="error-message" id="occupationError">
+              Please select your occupation
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="annualIncome">Annual Income (₹)</label>
+            <input
+              type="number"
+              id="annualIncome"
+              name="annualIncome"
+              min="100000"
+              required
+            />
+            <div class="error-message" id="incomeError">
+              Please enter valid annual income
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              minlength="6"
+            />
+            <div class="error-message" id="passwordError">
+              Password must be at least 6 characters
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+            />
+            <div class="error-message" id="confirmPasswordError">
+              Passwords do not match
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            Create Account
+          </button>
+        </form>
+
+        <div class="login-link">
+          Already have an account? <a href="./login.html">Sign In</a>
         </div>
+
+        <button class="btn btn-outline" onclick="location.href='./index.html'">
+          ← Back to Home
+        </button>
+      </div>
     </div>
 
     <script type="module">
-        import {API_BASE_URL} from './api.js';
-        //Register form..
-        const form = document.getElementById('registrationForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const successMessage = document.getElementById('successMessage');
+      import { API_BASE_URL } from "./api.js";
+      //Register form..
+      const form = document.getElementById("registrationForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const successMessage = document.getElementById("successMessage");
 
-        // Validation functions
-        function validateName(name) {
-            return name.trim().length >= 2;
-        }
+      // Validation functions
+      function validateName(name) {
+        return name.trim().length >= 2;
+      }
 
-        function validateEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
+      function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
 
-        function validatePhone(phone) {
-            const phoneRegex = /^[6-9]\d{9}$/;
-            return phoneRegex.test(phone.replace(/\D/g, ''));
-        }
+      function validatePhone(phone) {
+        const phoneRegex = /^[6-9]\d{9}$/;
+        return phoneRegex.test(phone.replace(/\D/g, ""));
+      }
 
-        function validatePassword(password) {
-            return password.length >= 6;
-        }
+      function validatePassword(password) {
+        return password.length >= 6;
+      }
 
-        function validateConfirmPassword(password, confirmPassword) {
-            return password === confirmPassword;
-        }
+      function validateConfirmPassword(password, confirmPassword) {
+        return password === confirmPassword;
+      }
 
-        function showError(inputId, errorId, message) {
-            document.getElementById(inputId).classList.add('input-error');
-            document.getElementById(errorId).textContent = message;
-            document.getElementById(errorId).style.display = 'block';
-        }
+      function showError(inputId, errorId, message) {
+        document.getElementById(inputId).classList.add("input-error");
+        document.getElementById(errorId).textContent = message;
+        document.getElementById(errorId).style.display = "block";
+      }
 
-        function hideError(inputId, errorId) {
-            document.getElementById(inputId).classList.remove('input-error');
-            document.getElementById(errorId).style.display = 'none';
-        }
+      function hideError(inputId, errorId) {
+        document.getElementById(inputId).classList.remove("input-error");
+        document.getElementById(errorId).style.display = "none";
+      }
 
-        // Real-time validation
-        document.getElementById('firstName').addEventListener('blur', function() {
-            if (!validateName(this.value)) {
-                showError('firstName', 'firstNameError', 'Please enter a valid first name');
-            } else {
-                hideError('firstName', 'firstNameError');
-            }
+      // Real-time validation
+      document
+        .getElementById("firstName")
+        .addEventListener("blur", function () {
+          if (!validateName(this.value)) {
+            showError(
+              "firstName",
+              "firstNameError",
+              "Please enter a valid first name"
+            );
+          } else {
+            hideError("firstName", "firstNameError");
+          }
         });
 
-        document.getElementById('lastName').addEventListener('blur', function() {
-            if (!validateName(this.value)) {
-                showError('lastName', 'lastNameError', 'Please enter a valid last name');
-            } else {
-                hideError('lastName', 'lastNameError');
-            }
-        });
-
-        document.getElementById('email').addEventListener('blur', function() {
-            if (!validateEmail(this.value)) {
-                showError('email', 'emailError', 'Please enter a valid email address');
-            } else {
-                hideError('email', 'emailError');
-            }
-        });
-
-        document.getElementById('phone').addEventListener('blur', function() {
-            if (!validatePhone(this.value)) {
-                showError('phone', 'phoneError', 'Please enter a valid 10-digit phone number');
-            } else {
-                hideError('phone', 'phoneError');
-            }
-        });
-
-        document.getElementById('password').addEventListener('blur', function() {
-            if (!validatePassword(this.value)) {
-                showError('password', 'passwordError', 'Password must be at least 6 characters');
-            } else {
-                hideError('password', 'passwordError');
-            }
-        });
-
-        document.getElementById('confirmPassword').addEventListener('blur', function() {
-            const password = document.getElementById('password').value;
-            if (!validateConfirmPassword(password, this.value)) {
-                showError('confirmPassword', 'confirmPasswordError', 'Passwords do not match');
-            } else {
-                hideError('confirmPassword', 'confirmPasswordError');
-            }
-        });
-
-form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const formData = {
-        firstName: document.getElementById('firstName').value.trim(),
-        lastName: document.getElementById('lastName').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        occupation: document.getElementById('occupation').value,
-        annualIncome: document.getElementById('annualIncome').value,
-        password: document.getElementById('password').value
-    };
-
-    try {
-        // Define API base URL
-        const registerUrl = `${API_BASE_URL}/auth/register`;
-        
-        console.log(' Sending POST request to:', registerUrl);
-        console.log('  Request payload:', formData);
-
-        const response = await fetch(registerUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-
-        console.log( response.status);
-        const responseText = await response.text();
-        console.log('📨 Raw response:', responseText);
-        
-        let data;
-        try {
-            data = JSON.parse(responseText);
-        } catch (parseError) {
-            console.error('Failed to parse JSON response:', parseError);
-            throw new Error('Invalid JSON response from server');
-        }
-
-        if (response.ok) {
-            console.log(' Registration successful:', data);
-            successMessage.style.display = 'block';
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 2000);
+      document.getElementById("lastName").addEventListener("blur", function () {
+        if (!validateName(this.value)) {
+          showError(
+            "lastName",
+            "lastNameError",
+            "Please enter a valid last name"
+          );
         } else {
-            console.error('Registration failed:', data);
-            alert(data.message || `Registration failed with status: ${response.status}`);
+          hideError("lastName", "lastNameError");
         }
+      });
 
-    } catch (error) {
-        console.error('Registration error:', error);
-        alert('Registration failed: ' + error.message);
-    } finally {
-        submitBtn.classList.remove('btn-loading');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Create Account';
-    }
-});
+      document.getElementById("email").addEventListener("blur", function () {
+        if (!validateEmail(this.value)) {
+          showError(
+            "email",
+            "emailError",
+            "Please enter a valid email address"
+          );
+        } else {
+          hideError("email", "emailError");
+        }
+      });
+
+      document.getElementById("phone").addEventListener("blur", function () {
+        if (!validatePhone(this.value)) {
+          showError(
+            "phone",
+            "phoneError",
+            "Please enter a valid 10-digit phone number"
+          );
+        } else {
+          hideError("phone", "phoneError");
+        }
+      });
+
+      document.getElementById("password").addEventListener("blur", function () {
+        if (!validatePassword(this.value)) {
+          showError(
+            "password",
+            "passwordError",
+            "Password must be at least 6 characters"
+          );
+        } else {
+          hideError("password", "passwordError");
+        }
+      });
+
+      document
+        .getElementById("confirmPassword")
+        .addEventListener("blur", function () {
+          const password = document.getElementById("password").value;
+          if (!validateConfirmPassword(password, this.value)) {
+            showError(
+              "confirmPassword",
+              "confirmPasswordError",
+              "Passwords do not match"
+            );
+          } else {
+            hideError("confirmPassword", "confirmPasswordError");
+          }
+        });
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = {
+          firstName: document.getElementById("firstName").value.trim(),
+          lastName: document.getElementById("lastName").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          occupation: document.getElementById("occupation").value,
+          annualIncome: document.getElementById("annualIncome").value,
+          password: document.getElementById("password").value,
+        };
+
+        try {
+          // Define API base URL
+          const registerUrl = `${API_BASE_URL}/auth/register`;
+
+          console.log(" Sending POST request to:", registerUrl);
+          console.log("  Request payload:", formData);
+
+          const response = await fetch(registerUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+
+          console.log(response.status);
+          const responseText = await response.text();
+          console.log("Raw response:", responseText);
+
+          let data;
+          try {
+            data = JSON.parse(responseText);
+          } catch (parseError) {
+            console.error("Failed to parse JSON response:", parseError);
+            throw new Error("Invalid JSON response from server");
+          }
+
+          if (response.ok) {
+            console.log(" Registration successful:", data);
+            successMessage.style.display = "block";
+            setTimeout(() => {
+              window.location.href = "login.html";
+            }, 2000);
+          } else {
+            console.error("Registration failed:", data);
+            alert(
+              data.message ||
+                `Registration failed with status: ${response.status}`
+            );
+          }
+        } catch (error) {
+          console.error("Registration error:", error);
+          alert("Registration failed: " + error.message);
+        } finally {
+          submitBtn.classList.remove("btn-loading");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Create Account";
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

@@ -6,8 +6,8 @@ const {
     getCurrentUser,
     logout 
 } = require('../controllers/authController');
-const { authenticateToken } = require('../middlware/auth'); // Fix typo: middlware -> middleware
-const { validateRegistration, handleValidationErrors } = require('../middlware/validation'); // Fix typo
+const { authenticateToken } = require('../middlware/auth');
+const { validateRegistration, handleValidationErrors } = require('../middlware/validation');
 
 const router = express.Router();
 

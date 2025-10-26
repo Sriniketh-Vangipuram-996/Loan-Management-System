@@ -1,392 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LoanEase - Smart Loan Management</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Header Styles */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .logo-icon {
+        background: white;
+        color: #667eea;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .btn {
+        padding: 10px 25px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+      }
+
+      .btn-primary {
+        background: white;
+        color: #667eea;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Hero Section */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+        margin: 60px 0;
+        color: white;
+      }
+
+      .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+
+      /* EMI Calculator */
+      .calculator-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .calculator-card h2 {
+        color: #333;
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 1.8rem;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .range-input {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .range-input input[type="range"] {
+        flex: 1;
+      }
+
+      .range-value {
+        min-width: 60px;
+        text-align: center;
+        font-weight: 600;
+        color: #667eea;
+      }
+
+      .result-card {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .emi-amount {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #667eea;
+        margin: 10px 0;
+      }
+
+      .result-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .detail-item {
+        text-align: center;
+      }
+
+      .detail-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .detail-label {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      /* Features Section */
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin: 80px 0;
+      }
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      .feature-card h3 {
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 40px 0;
+        color: white;
+        opacity: 0.8;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .hero {
+          grid-template-columns: 1fr;
+          text-align: center;
         }
 
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header Styles */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .logo-icon {
-            background: white;
-            color: #667eea;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+        .features {
+          grid-template-columns: 1fr;
         }
 
         .nav-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #667eea;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        /* Hero Section */
-        .hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            margin: 60px 0;
-            color: white;
+          flex-direction: column;
+          gap: 10px;
         }
 
         .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
+          font-size: 2.2rem;
         }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        /* EMI Calculator */
-        .calculator-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .calculator-card h2 {
-            color: #333;
-            margin-bottom: 25px;
-            text-align: center;
-            font-size: 1.8rem;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .range-input {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .range-input input[type="range"] {
-            flex: 1;
-        }
-
-        .range-value {
-            min-width: 60px;
-            text-align: center;
-            font-weight: 600;
-            color: #667eea;
-        }
-
-        .result-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .emi-amount {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #667eea;
-            margin: 10px 0;
-        }
-
-        .result-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .detail-item {
-            text-align: center;
-        }
-
-        .detail-value {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .detail-label {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        /* Features Section */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin: 80px 0;
-        }
-
-        .feature-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            color: white;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: white;
-            opacity: 0.8;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .nav-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="logo">
-                <div class="logo-icon">L</div>
-                <span>LoanEase</span>
-            </div>
-            <div class="nav-buttons">
-                <button class="btn btn-outline" onclick="location.href='./login.html'">Customer Login</button>
-                <button class="btn btn-primary" onclick="location.href='./register.html'">Get Started</button>
-            </div>
-        </header>
+      <!-- Header -->
+      <header>
+        <div class="logo">
+          <div class="logo-icon">L</div>
+          <span>LoanEase</span>
+        </div>
+        <div class="nav-buttons">
+          <button
+            class="btn btn-outline"
+            onclick="location.href='./login.html'"
+          >
+            Customer Login
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="location.href='./register.html'"
+          >
+            Get Started
+          </button>
+        </div>
+      </header>
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Smart Loans, Brighter Futures</h1>
-                <p>Experience seamless loan management with our advanced platform. Apply, track, and manage your loans with complete transparency and ease.</p>
-                <div class="nav-buttons">
-                    <button class="btn btn-primary" onclick="location.href='./loan-apply.html'">Apply for Loan</button>
-                    <button class="btn btn-outline" onclick="location.href='./admin-login.html'">Admin Portal</button>
-                </div>
-            </div>
-            
-            <!-- EMI Calculator -->
-            <div class="calculator-card">
-                <h2>EMI Calculator</h2>
-                <div class="input-group">
-                    <label for="loanAmount">Loan Amount (₹)</label>
-                    <div class="range-input">
-                        <input type="range" id="loanAmount" min="50000" max="5000000" step="50000" value="500000">
-                        <span class="range-value" id="loanAmountValue">5,00,000</span>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label for="interestRate">Interest Rate (%)</label>
-                    <div class="range-input">
-                        <input type="range" id="interestRate" min="5" max="20" step="0.1" value="8.5">
-                        <span class="range-value" id="interestRateValue">8.5%</span>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label for="loanTenure">Loan Tenure (Months)</label>
-                    <div class="range-input">
-                        <input type="range" id="loanTenure" min="6" max="120" step="6" value="60">
-                        <span class="range-value" id="loanTenureValue">60</span>
-                    </div>
-                </div>
-                
-                <div class="result-card">
-                    <div>Monthly EMI</div>
-                    <div class="emi-amount" id="emiAmount">₹10,280</div>
-                    <div class="result-details">
-                        <div class="detail-item">
-                            <div class="detail-value" id="totalInterest">₹1,16,800</div>
-                            <div class="detail-label">Total Interest</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-value" id="totalAmount">₹6,16,800</div>
-                            <div class="detail-label">Total Amount</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Smart Loans, Brighter Futures</h1>
+          <p>
+            Experience seamless loan management with our advanced platform.
+            Apply, track, and manage your loans with complete transparency and
+            ease.
+          </p>
+          <div class="nav-buttons">
+            <button
+              class="btn btn-primary"
+              onclick="location.href='./loan-apply.html'"
+            >
+              Apply for Loan
+            </button>
+            <button
+              class="btn btn-outline"
+              onclick="location.href='./admin-login.html'"
+            >
+              Admin Portal
+            </button>
+          </div>
+        </div>
 
-        <!-- Features Section -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Quick Approval</h3>
-                <p>Get your loan approved within 24 hours with minimal documentation</p>
+        <!-- EMI Calculator -->
+        <div class="calculator-card">
+          <h2>EMI Calculator</h2>
+          <div class="input-group">
+            <label for="loanAmount">Loan Amount (₹)</label>
+            <div class="range-input">
+              <input
+                type="range"
+                id="loanAmount"
+                min="50000"
+                max="5000000"
+                step="50000"
+                value="500000"
+              />
+              <span class="range-value" id="loanAmountValue">5,00,000</span>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <h3>Secure & Safe</h3>
-                <p>Bank-level security to protect your personal and financial information</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Track Progress</h3>
-                <p>Real-time tracking of your loan application status and updates</p>
-            </div>
-        </section>
+          </div>
 
-        <!-- Footer -->
-        <footer>
-            <p>&copy; 2025 LoanEase Management System. All rights reserved.</p>
-        </footer>
+          <div class="input-group">
+            <label for="interestRate">Interest Rate (%)</label>
+            <div class="range-input">
+              <input
+                type="range"
+                id="interestRate"
+                min="5"
+                max="20"
+                step="0.1"
+                value="8.5"
+              />
+              <span class="range-value" id="interestRateValue">8.5%</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="loanTenure">Loan Tenure (Months)</label>
+            <div class="range-input">
+              <input
+                type="range"
+                id="loanTenure"
+                min="6"
+                max="120"
+                step="6"
+                value="60"
+              />
+              <span class="range-value" id="loanTenureValue">60</span>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <div>Monthly EMI</div>
+            <div class="emi-amount" id="emiAmount">₹10,280</div>
+            <div class="result-details">
+              <div class="detail-item">
+                <div class="detail-value" id="totalInterest">₹1,16,800</div>
+                <div class="detail-label">Total Interest</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-value" id="totalAmount">₹6,16,800</div>
+                <div class="detail-label">Total Amount</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Quick Approval</h3>
+          <p>
+            Get your loan approved within 24 hours with minimal documentation
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Secure & Safe</h3>
+          <p>
+            Bank-level security to protect your personal and financial
+            information
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Track Progress</h3>
+          <p>Real-time tracking of your loan application status and updates</p>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <p>&copy; 2025 LoanEase Management System. All rights reserved.</p>
+      </footer>
     </div>
 
     <script>
-        // EMI Calculation.
-        function calculateEMI() {
-            const principal = parseFloat(document.getElementById('loanAmount').value);
-            const annualRate = parseFloat(document.getElementById('interestRate').value);
-            const tenureMonths = parseFloat(document.getElementById('loanTenure').value);
-            
-            const monthlyRate = annualRate / 12 / 100;
-            const emi = principal * monthlyRate * 
-                Math.pow(1 + monthlyRate, tenureMonths) / 
-                (Math.pow(1 + monthlyRate, tenureMonths) - 1);
-            
-            const totalAmount = emi * tenureMonths;
-            const totalInterest = totalAmount - principal;
-            document.getElementById('emiAmount').textContent = '₹' + Math.round(emi).toLocaleString();
-            document.getElementById('totalInterest').textContent = '₹' + Math.round(totalInterest).toLocaleString();
-            document.getElementById('totalAmount').textContent = '₹' + Math.round(totalAmount).toLocaleString();
-        }
+      // EMI Calculation.
+      function calculateEMI() {
+        const principal = parseFloat(
+          document.getElementById("loanAmount").value
+        );
+        const annualRate = parseFloat(
+          document.getElementById("interestRate").value
+        );
+        const tenureMonths = parseFloat(
+          document.getElementById("loanTenure").value
+        );
 
-        document.getElementById('loanAmount').addEventListener('input', function() {
-            document.getElementById('loanAmountValue').textContent = 
-                parseInt(this.value).toLocaleString();
-            calculateEMI();
+        const monthlyRate = annualRate / 12 / 100;
+        const emi =
+          (principal * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) /
+          (Math.pow(1 + monthlyRate, tenureMonths) - 1);
+
+        const totalAmount = emi * tenureMonths;
+        const totalInterest = totalAmount - principal;
+        document.getElementById("emiAmount").textContent =
+          "₹" + Math.round(emi).toLocaleString();
+        document.getElementById("totalInterest").textContent =
+          "₹" + Math.round(totalInterest).toLocaleString();
+        document.getElementById("totalAmount").textContent =
+          "₹" + Math.round(totalAmount).toLocaleString();
+      }
+
+      document
+        .getElementById("loanAmount")
+        .addEventListener("input", function () {
+          document.getElementById("loanAmountValue").textContent = parseInt(
+            this.value
+          ).toLocaleString();
+          calculateEMI();
         });
 
-        document.getElementById('interestRate').addEventListener('input', function() {
-            document.getElementById('interestRateValue').textContent = 
-                parseFloat(this.value).toFixed(1) + '%';
-            calculateEMI();
+      document
+        .getElementById("interestRate")
+        .addEventListener("input", function () {
+          document.getElementById("interestRateValue").textContent =
+            parseFloat(this.value).toFixed(1) + "%";
+          calculateEMI();
         });
 
-        document.getElementById('loanTenure').addEventListener('input', function() {
-            document.getElementById('loanTenureValue').textContent = this.value;
-            calculateEMI();
+      document
+        .getElementById("loanTenure")
+        .addEventListener("input", function () {
+          document.getElementById("loanTenureValue").textContent = this.value;
+          calculateEMI();
         });
-        calculateEMI();
+      calculateEMI();
     </script>
-</body>
+  </body>
 </html>
