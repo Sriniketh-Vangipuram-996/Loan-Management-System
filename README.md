@@ -89,51 +89,6 @@ POST /api/loans/submitLoan - Submit loan application
 
 GET /api/loans/:id - Get loan details
 
-##  Project Structure:
-
-loan-management-system/
-├── frontend/
-│ ├── admin-dashboard.html
-│ ├── admin-login.html
-│ ├── customer-dashboard.html
-│ ├── index.html
-│ ├── loan-apply.html
-│ ├── loan-details.html
-│ ├── login.html
-│ ├── profile.html
-│ ├── register.html
-│ ├── api.js
-│ └── modal.js
-├── backend/
-│ ├── config/
-│ │ ├── database.js
-│ │ ├── environment.js
-│ │ └── jwt.js
-│ ├── controllers/
-│ │ ├── adminController.js
-│ │ ├── authController.js
-│ │ ├── customerController.js
-│ │ └── loanController.js
-│ ├── middleware/
-│ │ ├── auth.js
-│ │ ├── errorHandler.js
-│ │ └── validation.js
-│ ├── models/
-│ │ ├── loan.js
-│ │ └── user.js
-│ ├── routes/
-│ │ ├── admin.js
-│ │ ├── auth.js
-│ │ ├── customer.js
-│ │ └── loans.js
-│ ├── utils/
-│ │ ├── emiCalculator.js
-│ │ └── passwordHash.js
-│ ├── app.js
-│ ├── server.js
-│ └── package.json
-└── README.md
-
 ## Future Enhancements:
 
 Email notifications for loan status updates
