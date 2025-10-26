@@ -1,39 +1,47 @@
-## Loan Management System (LMS)
+# Loan Management System (LMS)
 
 A full-stack web application for managing loan applications and approvals with role-based access for customers and administrators.
 
 ## Features
-Customer Portal: Loan applications, profile management, EMI calculator
 
-Admin Dashboard: Loan management, customer analytics, system settings
+**Customer Portal**: Loan applications, profile management, EMI calculator
 
-Secure Authentication: JWT-based authentication with role-based access
+**Admin Dashboard**: Loan management, customer analytics, system settings
+
+**Secure Authentication**: JWT-based authentication with role-based access
 
 ## Tech Stack:
-Frontend: HTML5, CSS3, JavaScript, Chart.js
-Backend: Node.js, Express.js, MySQL, JWT, bcryptjs
+
+**Frontend**: HTML5, CSS3, JavaScript, Chart.js
+**Backend**: Node.js, Express.js, MySQL, JWT, bcryptjs
+
+## Database Tables
+
+### Core Tables
+
+- **users** - Customer and admin accounts with role-based access
+- **loans** - Loan applications with status tracking and EMI calculations
+- **system_settings** - Configurable loan parameters and limits
+- **notifications** - In-app messaging and status updates
 
 ## Quick Start:
-1] Clone the repo
 
-2] Install backend dependencies: cd backend && npm install
-
-3] Setup database and environment variables
-
-4] Run: npm start
-
-5] Open frontend/index.html in browser
+1. Clone the repo
+2.  Install backend dependencies: cd backend && npm install
+3. Setup database and environment variables
+4. Run: npm start
+5. Open frontend/index.html in browser
 
 ##  Default Admin Login:
 
-Email: admin@loanapp.com
-Password: ******
+**Email**: admin@loanapp.com
+**Password**: ******
 
-bcryptjs - Password hashing and security
+**Security**:bcryptjs - Password hashing and security
 
 ## API Endpoints:
 
-# Authentication
+### Authentication
 
 POST /api/auth/register - User registration
 
@@ -45,7 +53,7 @@ GET /api/auth/me - Get current user
 
 POST /api/auth/logout - Logout
 
-# Customer Routes
+### Customer Routes
 
 GET /api/customer/profile - Get profile
 
@@ -59,7 +67,7 @@ GET /api/customer/loans/:id - Get loan details
 
 GET /api/customer/stats - Get customer statistics
 
-# Admin Routes
+### Admin Routes
 
 GET /api/admin/dashboard-stats - Dashboard statistics
 
@@ -81,7 +89,7 @@ PUT /api/admin/profile - Update admin profile
 
 GET /api/admin/settings - System settings
 
-#  Loan Routes
+###  Loan Routes
 
 POST /api/loans/calculate-emi - Calculate EMI
 
