@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Details - LoanEase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd8;
+            --secondary: #764ba2;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: var(--gray-800);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-600);
+        }
+
+        .btn-outline:hover {
+            background: var(--gray-100);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+            color: var(--gray-800);
+            margin-bottom: 5px;
+        }
+
+        .loan-id {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+        }
+
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-600);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--gray-200);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--danger);
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        /* Loan Details Card */
+        .loan-details-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .loan-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px;
+        }
+
+        .loan-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .loan-purpose {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending { background: #fef3cd; color: #856404; }
+        .status-approved { background: #d1fae5; color: #065f46; }
+        .status-rejected { background: #fee2e2; color: #991b1b; }
+        .status-under-review { background: #dbeafe; color: #1e40af; }
+
+        /* Loan Info Sections */
+        .loan-sections {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--gray-800);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: var(--gray-800);
+            font-weight: 600;
+        }
+
+        /* EMI section */
+        .emi-breakdown {
+            background: var(--gray-100);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .emi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .emi-item {
+            padding: 15px;
+        }
+
+        .emi-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .emi-label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+
+        /* Admin Notes Section */
+        .admin-notes {
+            background: #fffaf0;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .admin-notes h4 {
+            color: #744210;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-300);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -23px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid white;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-bottom: 5px;
+        }
+
+        .timeline-content {
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .emi-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .loan-amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon">L</div>
+                <span>LoanEase</span>
+            </a>
+            
+            <div class="user-menu">
+                <a href="./customer-dashboard.html" class="btn btn-outline">← Back to Dashboard</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Fallback state -->
+        <div class="loading-state" id="loadingState">
+            <div class="loading-spinner"></div>
+            <h3>Loading loan details...</h3>
+        </div>
+
+        <div class="error-state" id="errorState" style="display: none;">
+            <div class="error-icon">⚠️</div>
+            <h3>Failed to load loan details</h3>
+            <p id="errorMessage"></p>
+            <button class="btn btn-primary" onclick="loadLoanDetails()">Try Again</button>
+        </div>
+
+        <!-- Loan Details Content -->
+        <div id="loanContent" style="display: none;">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-title">
+                    <h1 id="loanTitle">Loan Application</h1>
+                    <div class="loan-id" id="loanId">Loading...</div>
+                </div>
+                <div id="adminActions" style="display: none;">
+                    <div class="action-buttons">
+                        <button class="btn btn-success" onclick="updateLoanStatus('approved')">Approve</button>
+                        <button class="btn btn-danger" onclick="updateLoanStatus('rejected')">Reject</button>
+                        <button class="btn btn-warning" onclick="updateLoanStatus('under_review')">Mark for Review</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Details Card -->
+            <div class="loan-details-card">
+                <div class="loan-header">
+                    <div class="loan-amount" id="displayAmount">₹0</div>
+                    <div class="loan-purpose" id="displayPurpose">Loading...</div>
+                    <div class="status-badge" id="statusBadge">Loading</div>
+                </div>
+
+                <div class="loan-sections">
+                    <div class="section">
+                        <h3 class="section-title">Basic Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Loan Type</span>
+                                <span class="info-value" id="infoLoanType">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Applied Date</span>
+                                <span class="info-value" id="infoAppliedDate">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Interest Rate</span>
+                                <span class="info-value" id="infoInterestRate">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Loan Tenure</span>
+                                <span class="info-value" id="infoTenure">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Applicant Information -->
+                    <div class="section">
+                        <h3 class="section-title">Applicant Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Applicant Name</span>
+                                <span class="info-value" id="infoApplicantName">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Email</span>
+                                <span class="info-value" id="infoApplicantEmail">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Phone</span>
+                                <span class="info-value" id="infoApplicantPhone">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Occupation</span>
+                                <span class="info-value" id="infoOccupation">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Annual Income</span>
+                                <span class="info-value" id="infoAnnualIncome">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EMI Section -->
+                    <div class="section">
+                        <h3 class="section-title">Repayment Details</h3>
+                        <div class="emi-breakdown">
+                            <div class="emi-grid">
+                                <div class="emi-item">
+                                    <div class="emi-value" id="emiMonthly">₹0</div>
+                                    <div class="emi-label">Monthly EMI</div>
+                                </div>
+                                <div class="emi-item">
+                                    <div class="emi-value" id="emiTotalInterest">₹0</div>
+                                    <div class="emi-label">Total Interest</div>
+                                </div>
+                                <div class="emi-item">
+                                    <div class="emi-value" id="emiTotalAmount">₹0</div>
+                                    <div class="emi-label">Total Amount</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Purpose Details -->
+                    <div class="section">
+                        <h3 class="section-title">Purpose Details</h3>
+                        <div class="info-item">
+                            <span class="info-label">Purpose Description</span>
+                            <span class="info-value" id="infoPurposeDescription">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Application Timeline -->
+                    <div class="section">
+                        <h3 class="section-title">Application Timeline</h3>
+                        <div class="timeline" id="applicationTimeline">
+                            <!-- Timeline will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Admin Notes (Visible to admins and when notes exist) -->
+                    <div class="section" id="adminNotesSection" style="display: none;">
+                        <h3 class="section-title">Admin Notes</h3>
+                        <div class="admin-notes">
+                            <h4>📝 Internal Notes</h4>
+                            <p id="adminNotesContent">No notes available.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+    import { API_BASE_URL } from './api.js';
+    
+    let currentLoanId = null;
+    let currentUserRole = null;
+    let userProfileData = null;
+
+    function initializePage() {
+        checkAuth();
+        getLoanIdFromURL();
+        loadUserProfile(); 
+    }
+
+    function checkAuth() {
+        const token = localStorage.getItem('authToken');
+        currentUserRole = localStorage.getItem('userRole');
+        
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+    }
+
+    function getLoanIdFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        currentLoanId = urlParams.get('id');
+        
+        if (!currentLoanId) {
+            showError('Loan ID not specified in URL');
+            return;
+        }
+    }
+
+    // Load user profile..
+    async function loadUserProfile() {
+        try {
+            const token = localStorage.getItem('authToken');
+            console.log('👤 [Loan Details] Loading user profile...');
+            
+            const response = await fetch(`${API_BASE_URL}/customer/profile`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Profile API failed: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('[Loan Details] User profile response:', result);
+            
+            if (result.success) {
+                userProfileData = result.data;
+                console.log('[Loan Details] User profile loaded:', userProfileData);
+                
+                // load loan details.
+                loadLoanDetails();
+            } else {
+                throw new Error(result.message || 'Failed to load user profile');
+            }
+            
+        } catch (error) {
+            console.error(' XX [Loan Details] Error loading user profile:', error);
+            loadLoanDetails();
+        }
+    }
+
+    // load loan details from backend..
+    async function loadLoanDetails() {
+        showLoading();
+        hideError();
+        hideContent();
+
+        try {
+            const token = localStorage.getItem('authToken');
+            
+            // Use the correct endpoint based on role
+            const endpoint = currentUserRole === 'admin' 
+                ? `${API_BASE_URL}/admin/loans/${currentLoanId}`
+                : `${API_BASE_URL}/customer/loans/${currentLoanId}`;
+
+            console.log('🔍 [Loan Details] Fetching loan from:', endpoint);
+
+            const response = await fetch(endpoint, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            console.log('📡 [Loan Details] Loan response status:', response.status);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error(' [Loan Details] Loan API error:', errorText);
+                throw new Error(`Failed to load loan details: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log('📦 [Loan Details] Full loan response:', result);
+            
+            if (!result.success) {
+                throw new Error(result.message || 'Failed to load loan details');
+            }
+
+            // Extract loan data from the response structure
+            const loanData = result.data?.loan || result.data || result.loan || result;
+            console.log('[Loan Details] Extracted loan data:', loanData);
+            
+            displayLoanDetails(loanData);
+            
+        } catch (error) {
+            console.error('[Loan Details] Error loading loan details:', error);
+            showError(error.message || 'Failed to load loan details. Please try again.');
+        }
+    }
+
+    // Display loan data 
+    function displayLoanDetails(loanData) {
+        console.log('[Loan Details] Displaying loan data with profile:', { 
+            loanData, 
+            userProfileData 
+        });
+        
+        // Update basic information
+        document.getElementById('loanId').textContent = `Loan #${loanData.id || loanData.loan_id || currentLoanId}`;
+        document.getElementById('loanTitle').textContent = `${formatLoanType(loanData.loanType || loanData.loan_type)} Application`;
+        document.getElementById('displayAmount').textContent = formatCurrency(loanData.amount);
+        document.getElementById('displayPurpose').textContent = loanData.purpose || 'Not specified';
+        document.getElementById('infoLoanType').textContent = formatLoanType(loanData.loanType || loanData.loan_type);
+        document.getElementById('infoAppliedDate').textContent = formatDate(loanData.appliedDate || loanData.applied_date);
+        
+        // FIXED: Use proper interest rate calculation
+        const interestRate = calculateInterestRate(loanData.loanType || loanData.loan_type);
+        document.getElementById('infoInterestRate').textContent = `${interestRate}%`;
+        
+        document.getElementById('infoTenure').textContent = `${loanData.tenureMonths || loanData.tenure_months} months`;
+        document.getElementById('infoPurposeDescription').textContent = loanData.purpose || 'Not provided';
+
+        // Update applicant information - FIXED: Use user profile data
+        updateApplicantInfo(loanData);
+
+        // Calculate and update EMI details - FIXED: Dynamic calculation
+        updateEMIDetails(loanData, interestRate);
+
+        // Update status and timeline
+        updateStatusDisplay(loanData.status || 'pending');
+        updateTimeline(loanData);
+
+        // Show admin features 
+        updateAdminFeatures(loanData);
+
+        hideLoading();
+        showContent();
+    }
+
+    function updateApplicantInfo(loanData) {
+        console.log('👤 [Loan Details] Loading applicant data from profile:', userProfileData);
+        
+        let applicantData = {};
+
+        if (userProfileData) {
+            applicantData = {
+                name: userProfileData.name || 'Customer',
+                email: userProfileData.email || 'Not available',
+                phone: userProfileData.phone || 'Not available',
+                occupation: userProfileData.occupation || 'Not specified',
+                annual_income: userProfileData.annualIncome || userProfileData.annual_income || 0
+            };
+        } else {
+            // Fallback
+            const storedUserData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const storedUserName = localStorage.getItem('userName');
+            const storedUserEmail = localStorage.getItem('userEmail');
+            
+            applicantData = {
+                name: storedUserName || storedUserData.name || 'Customer',
+                email: storedUserEmail || storedUserData.email || 'Not available',
+                phone: storedUserData.phone || storedUserData.phone_number || 'Not available',
+                occupation: storedUserData.occupation || 'Not specified',
+                annual_income: storedUserData.annualIncome || storedUserData.annual_income || storedUserData.income || 0
+            };
+        }
+
+        console.log('[Loan Details] Final applicant data:', applicantData);
+
+        // Update UI with applicant data
+        document.getElementById('infoApplicantName').textContent = applicantData.name;
+        document.getElementById('infoApplicantEmail').textContent = applicantData.email;
+        document.getElementById('infoApplicantPhone').textContent = applicantData.phone;
+        document.getElementById('infoOccupation').textContent = formatOccupation(applicantData.occupation);
+        document.getElementById('infoAnnualIncome').textContent = formatCurrency(applicantData.annual_income);
+    }
+
+    // Calculate and update EMI details
+    function updateEMIDetails(loanData, interestRate) {
+        const principal = parseFloat(loanData.amount || 0);
+        const tenureMonths = parseInt(loanData.tenureMonths || loanData.tenure_months || 12);
+
+        console.log('[Loan Details] EMI calculation inputs:', { 
+            principal, 
+            interestRate, 
+            tenureMonths 
+        });
+
+        const monthlyRate = interestRate / 12 / 100;
+        const emi = principal * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths) / 
+                   (Math.pow(1 + monthlyRate, tenureMonths) - 1);
+        
+        const totalAmount = emi * tenureMonths;
+        const totalInterest = totalAmount - principal;
+
+        console.log('[Loan Details] EMI results:', { 
+            monthlyEMI: Math.round(emi), 
+            totalInterest: Math.round(totalInterest), 
+            totalAmount: Math.round(totalAmount) 
+        });
+
+        document.getElementById('emiMonthly').textContent = formatCurrency(Math.round(emi));
+        document.getElementById('emiTotalInterest').textContent = formatCurrency(Math.round(totalInterest));
+        document.getElementById('emiTotalAmount').textContent = formatCurrency(Math.round(totalAmount));
+    }
+
+    // Calculate interest rates.
+    function calculateInterestRate(loanType) {
+        const rates = {
+            'personal': 10.5,
+            'home': 8.5,
+            'car': 9.0,
+            'education': 7.5,
+            'business': 12.0
+        };
+        return rates[loanType] || 10.5; 
+    }
+
+    //Status display..
+    function updateStatusDisplay(status) {
+        const badge = document.getElementById('statusBadge');
+        if (!status) status = 'pending';
+        
+        const statusText = formatStatusText(status);
+        const statusClass = `status-badge status-${status.toLowerCase()}`;
+        
+        badge.textContent = statusText;
+        badge.className = statusClass;
+        
+        console.log('[Loan Details] Status updated:', { status, statusText, statusClass });
+    }
+
+    function updateTimeline(loanData) {
+        const timelineContainer = document.getElementById('applicationTimeline');
+        timelineContainer.innerHTML = '';
+
+        // Create timeline events from loan data
+        const timelineEvents = [];
+        const appliedDate = loanData.appliedDate || loanData.applied_date;
+        timelineEvents.push({
+            date: appliedDate || new Date().toISOString(),
+            event: 'Application submitted',
+            description: 'Loan application was submitted for review'
+        });
+
+        // Status update events
+        const currentStatus = loanData.status;
+        const processedDate = loanData.processedDate;
+        
+        if (currentStatus && currentStatus !== 'pending') {
+            let statusEvent = '';
+            let statusDescription = '';
+            
+            if (currentStatus === 'approved') {
+                statusEvent = 'Loan approved';
+                statusDescription = 'Congratulations! Your loan has been approved';
+            } else if (currentStatus === 'rejected') {
+                statusEvent = 'Loan rejected';
+                statusDescription = loanData.adminNotes || 'Application did not meet criteria';
+            } else if (currentStatus === 'under_review') {
+                statusEvent = 'Under review';
+                statusDescription = 'Application is being reviewed by loan officer';
+            }
+            
+            timelineEvents.push({
+                date: processedDate || appliedDate || new Date().toISOString(),
+                event: statusEvent,
+                description: statusDescription
+            });
+        }
+
+        // Add admin notes as timeline event if available
+        if (loanData.adminNotes && currentStatus === 'rejected') {
+            timelineEvents.push({
+                date: processedDate || new Date().toISOString(),
+                event: 'Admin notes added',
+                description: loanData.adminNotes
+            });
+        }
+
+        console.log('[Loan Details] Timeline events:', timelineEvents);
+
+        // Sort events by date
+        timelineEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // Populate timeline
+        timelineEvents.forEach((event, index) => {
+            const timelineItem = document.createElement('div');
+            timelineItem.className = `timeline-item ${index === timelineEvents.length - 1 ? 'timeline-item-current' : ''}`;
+            timelineItem.innerHTML = `
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">${formatDate(event.date)}</div>
+                    <div class="timeline-event">${event.event}</div>
+                    <div class="timeline-description">${event.description}</div>
+                </div>
+            `;
+            timelineContainer.appendChild(timelineItem);
+        });
+
+        console.log('📅 [Loan Details] Timeline updated with', timelineEvents.length, 'events');
+    }
+
+    function updateAdminFeatures(loanData) {
+        const adminActions = document.getElementById('adminActions');
+        const adminNotesSection = document.getElementById('adminNotesSection');
+
+        if (currentUserRole === 'admin') {
+            // Show admin actions for pending loans only
+            const status = loanData.status;
+            if (status === 'pending') {
+                adminActions.style.display = 'block';
+            } else {
+                adminActions.style.display = 'none';
+            }
+
+            if (loanData.adminNotes) {
+                adminNotesSection.style.display = 'block';
+                document.getElementById('adminNotesContent').textContent = loanData.adminNotes;
+            } else {
+                adminNotesSection.style.display = 'none';
+            }
+        } else {
+            adminActions.style.display = 'none';
+            adminNotesSection.style.display = 'none';
+        }
+    }
+
+    // Update loan status (admin only)
+    async function updateLoanStatus(newStatus) {
+        if (currentUserRole !== 'admin') {
+            alert('Only administrators can update loan status.');
+            return;
+        }
+
+        const confirmMessage = `Are you sure you want to mark this loan as ${newStatus}?`;
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('authToken');
+            
+            const endpoints = [
+                `${API_BASE_URL}/admin/loans/${currentLoanId}/status`,
+                `${API_BASE_URL}/admin/loans/${currentLoanId}`
+            ];
+
+            let response;
+            let lastError;
+
+            for (const endpoint of endpoints) {
+                try {
+                    console.log(' [Loan Details] Trying endpoint:', endpoint);
+                    response = await fetch(endpoint, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            status: newStatus,
+                            adminNotes: `Status updated to ${newStatus} on ${new Date().toLocaleDateString()}`
+                        })
+                    });
+
+                    if (response.ok) break;
+                    
+                } catch (error) {
+                    lastError = error;
+                    console.log(`[Loan Details] Endpoint failed: ${endpoint}`, error);
+                }
+            }
+
+            if (!response || !response.ok) {
+                throw new Error(lastError || `Failed to update loan status: ${response?.status}`);
+            }
+
+            const result = await response.json();
+            if (!result.success) {
+                throw new Error(result.message || 'Update failed');
+            }
+
+            alert(`Loan status updated to ${newStatus} successfully!`);
+            // Reload loan details to reflect changes
+            loadLoanDetails();
+            
+        } catch (error) {
+            console.error('Error updating loan status:', error);
+            alert(' Failed to update loan status: ' + error.message);
+        }
+    }
+
+    // Utility functions
+    function formatCurrency(amount) {
+        if (!amount || isNaN(amount)) return '₹0';
+        return '₹' + new Intl.NumberFormat('en-IN').format(Math.round(amount));
+    }
+
+    function formatDate(dateString) {
+        if (!dateString) return 'Not available';
+        try {
+            return new Date(dateString).toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        } catch (error) {
+            return 'Invalid date';
+        }
+    }
+
+    function formatLoanType(loanType) {
+        const types = {
+            'personal': 'Personal Loan',
+            'home': 'Home Loan',
+            'car': 'Car Loan',
+            'education': 'Education Loan',
+            'business': 'Business Loan'
+        };
+        return types[loanType] || (loanType ? loanType.charAt(0).toUpperCase() + loanType.slice(1) : 'Personal Loan');
+    }
+
+    function formatOccupation(occupation) {
+        const occupations = {
+            'salaried': 'Salaried Employee',
+            'business': 'Business Owner',
+            'self_employed': 'Self Employed',
+            'professional': 'Professional',
+            'self-employed': 'Self Employed'
+        };
+        return occupations[occupation] || (occupation ? occupation.charAt(0).toUpperCase() + occupation.slice(1) : 'Not specified');
+    }
+
+    function formatStatusText(status) {
+        const statusMap = {
+            'pending': 'Pending Review',
+            'approved': 'Approved',
+            'rejected': 'Rejected',
+            'under_review': 'Under Review',
+            'under-review': 'Under Review'
+        };
+        return statusMap[status] || (status ? status.charAt(0).toUpperCase() + status.slice(1) : 'Pending');
+    }
+
+    // UI state management
+    function showLoading() {
+        document.getElementById('loadingState').style.display = 'block';
+    }
+
+    function hideLoading() {
+        document.getElementById('loadingState').style.display = 'none';
+    }
+
+    function showError(message) {
+        document.getElementById('errorState').style.display = 'block';
+        document.getElementById('errorMessage').textContent = message;
+        document.getElementById('loadingState').style.display = 'none';
+    }
+
+    function hideError() {
+        document.getElementById('errorState').style.display = 'none';
+    }
+
+    function showContent() {
+        document.getElementById('loanContent').style.display = 'block';
+    }
+
+    function hideContent() {
+        document.getElementById('loanContent').style.display = 'none';
+    }
+
+    // Global funcs.
+    window.updateLoanStatus = updateLoanStatus;
+    window.loadLoanDetails = loadLoanDetails;
+
+    document.addEventListener('DOMContentLoaded', initializePage);
+</script>
+</body>
+</html>

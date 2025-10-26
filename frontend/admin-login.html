@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - LoanEase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1f36 0%, #2d3748 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        /* Admin Login Card */
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-top: 4px solid #667eea;
+        }
+
+        .admin-badge {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a5568;
+        }
+
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+        }
+
+        .forgot-password {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .customer-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+        }
+
+        .customer-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .customer-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error Message */
+        .error-message {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+            border: 1px solid #feb2b2;
+        }
+
+        .input-error {
+            border-color: #e53e3e !important;
+            background: #fff5f5 !important;
+        }
+
+        /* Security Notice */
+        .security-notice {
+            background: #fffaf0;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #744210;
+        }
+
+        .security-notice h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Loading State */
+        .btn-loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Demo Credentials */
+        .demo-credentials {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #22543d;
+        }
+
+        .demo-credentials h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .demo-credentials p {
+            margin: 4px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 25px;
+            }
+            
+            .links {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .header h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">L</div>
+                <span>LoanEase</span>
+            </div>
+            <h1>Admin Portal</h1>
+            <p>Secure access for bank personnel</p>
+        </div>
+
+        <!-- Admin Login Card -->
+        <div class="login-card">
+            <!-- Security Notice -->
+            <div class="security-notice">
+                <h3>🔒 Secure Access</h3>
+                <p>This portal is restricted to authorized bank personnel only. Unauthorized access is prohibited.</p>
+            </div>
+
+            <!-- Admin Badge -->
+            <div class="admin-badge">Administrator Access</div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage">
+                Invalid admin credentials. Access denied.
+            </div>
+
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="email">Admin Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter admin email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter admin password">
+                </div>
+
+                <div class="links">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        Remember this device
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    Secure Login
+                </button>
+            </form>
+
+            <div class="customer-link">
+                <a href="./login.html">← Back to Customer Login</a>
+            </div>
+
+            <button class="btn btn-outline" onclick="location.href='./index.html'">
+                ← Back to Home
+            </button>
+        </div>
+    </div>
+    <script type="module">
+        import { API_BASE_URL } from '../api.js';
+const form = document.getElementById('adminLoginForm');
+const loginBtn = document.getElementById('loginBtn');
+const errorMessage = document.getElementById('errorMessage');
+
+form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
+
+    if (!email || !password) {
+        showError('Please enter both email and password');
+        return;
+    }
+
+    if (!validateEmail(email)) {
+        showError('Please enter a valid email address');
+        return;
+    }
+
+    loginBtn.classList.add('btn-loading');
+    loginBtn.disabled = true;
+
+    try {
+    const response = await fetch(`${API_BASE_URL}/auth/admin-login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+    }
+
+    // Save token and user info
+    localStorage.setItem('authToken', data.data.token);
+    localStorage.setItem('userRole', data.data.user.role);
+    localStorage.setItem('userEmail', data.data.user.email);
+    localStorage.setItem('isAdmin', data.data.user.role === 'admin' ? 'true' : 'false');
+
+    if (rememberMe) {
+        localStorage.setItem('rememberMe', 'true');
+    } else {
+        localStorage.removeItem('rememberMe');
+    }
+
+    // Redirect..
+    window.location.href = './admin-dashboard.html';
+
+} catch (error) {
+    showError(error.message);
+} finally {
+    loginBtn.classList.remove('btn-loading');
+    loginBtn.disabled = false;
+}
+
+});
+
+// Email valiation..
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    setTimeout(() => {
+        errorMessage.style.display = 'none';
+    }, 5000);
+}
+
+function checkAuthStatus() {
+    const token = localStorage.getItem('authToken');
+    const isAdmin = localStorage.getItem('isAdmin');
+
+    if (token && isAdmin === 'true') {
+        // Redirect if already logged in
+        window.location.href = './admin-dashboard.html';
+    }
+}
+
+localStorage.removeItem('userRole');
+localStorage.removeItem('isAdmin');
+
+checkAuthStatus();
+
+document.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        form.dispatchEvent(new Event('submit'));
+    }
+});
+
+    </script>
+</body>
+</html>
