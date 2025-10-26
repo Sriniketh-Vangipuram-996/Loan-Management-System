@@ -1,18 +1,19 @@
-Loan Management System (LMS)
+## Loan Management System (LMS)
+
 A full-stack web application for managing loan applications and approvals with role-based access for customers and administrators.
 
-Features
+## Features
 Customer Portal: Loan applications, profile management, EMI calculator
 
 Admin Dashboard: Loan management, customer analytics, system settings
 
 Secure Authentication: JWT-based authentication with role-based access
 
->> Tech Stack:
+## Tech Stack:
 Frontend: HTML5, CSS3, JavaScript, Chart.js
 Backend: Node.js, Express.js, MySQL, JWT, bcryptjs
 
->> Quick Start:
+## Quick Start:
 1] Clone the repo
 
 2] Install backend dependencies: cd backend && npm install
@@ -23,16 +24,16 @@ Backend: Node.js, Express.js, MySQL, JWT, bcryptjs
 
 5] Open frontend/index.html in browser
 
->> Default Admin Login:
+##  Default Admin Login:
 
 Email: admin@loanapp.com
 Password: ******
 
 bcryptjs - Password hashing and security
 
->> API Endpoints:
+## API Endpoints:
 
-> Authentication
+# Authentication
 
 POST /api/auth/register - User registration
 
@@ -44,7 +45,7 @@ GET /api/auth/me - Get current user
 
 POST /api/auth/logout - Logout
 
-> Customer Routes
+# Customer Routes
 
 GET /api/customer/profile - Get profile
 
@@ -58,7 +59,7 @@ GET /api/customer/loans/:id - Get loan details
 
 GET /api/customer/stats - Get customer statistics
 
-> Admin Routes
+# Admin Routes
 
 GET /api/admin/dashboard-stats - Dashboard statistics
 
@@ -80,7 +81,7 @@ PUT /api/admin/profile - Update admin profile
 
 GET /api/admin/settings - System settings
 
-> Loan Routes
+#  Loan Routes
 
 POST /api/loans/calculate-emi - Calculate EMI
 
@@ -88,55 +89,7 @@ POST /api/loans/submitLoan - Submit loan application
 
 GET /api/loans/:id - Get loan details
 
->> Project Structure:
-
-loan-management-system/
-├── frontend/                 # Client-side application
-│   ├── admin-dashboard.html
-│   ├── admin-login.html
-│   ├── customer-dashboard.html
-│   ├── index.html
-│   ├── loan-apply.html
-│   ├── loan-details.html
-│   ├── login.html
-│   ├── profile.html
-│   ├── register.html
-│   └── api.js                 # API integration module
-|   |___modal.js
-│                            
-├── backend/                 # Server-side application
-│   ├── config/              # Configuration files
-│   │   ├── database.js
-│   │   ├── environment.js
-│   │   └── jwt.js
-│   ├── controllers/         # Business logic
-│   │   ├── adminController.js
-│   │   ├── authController.js
-│   │   ├── customerController.js
-│   │   └── loanController.js
-│   ├── middleware/          # Custom middleware
-│   │   ├── auth.js
-│   │   ├── errorHandler.js
-│   │   └── validation.js
-│   ├── models/              # Database models
-│   │   ├── loan.js
-│   │   └── user.js
-│   ├── routes/              # API endpoints
-│   │   ├── admin.js
-│   │   ├── auth.js
-│   │   ├── customer.js
-│   │   └── loans.js
-│   ├── utils/               # Utility functions
-│   │   ├── emiCalculator.js
-│   │   └── passwordHash.js
-│   ├── app.js               # Express application setup
-│   ├── server.js            # Server entry point
-│   └── package.json
-|   |___server.js            # Dependencies
-└── README.md                # Project documentation
-
-
->> Future Enhancements:
+## Future Enhancements:
 
 Email notifications for loan status updates
 
@@ -148,7 +101,7 @@ Payment integration for EMI tracking
 
 Multi-level approval workflows
 
->Learning Outcomes
+## Learning Outcomes
 
 Full-stack development with modern web technologies
 
