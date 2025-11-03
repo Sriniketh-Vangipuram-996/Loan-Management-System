@@ -349,6 +349,8 @@
 
     <script type="module">
       import { API_BASE_URL } from "./api.js";
+      console.log("API_BASE_URL:", API_BASE_URL);
+      console.log("Full register URL:", `${API_BASE_URL}/auth/register`);
       //Register form..
       const form = document.getElementById("registrationForm");
       const submitBtn = document.getElementById("submitBtn");

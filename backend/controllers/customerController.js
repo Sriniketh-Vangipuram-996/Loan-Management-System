@@ -48,7 +48,6 @@ const customerController = {
         company,
       } = req.body;
 
-
       // Clean and validate the data - ensure no undefined values
       const updateData = {};
 
@@ -89,7 +88,7 @@ const customerController = {
         updateData.address = null;
       }
 
-      // Handle date_of_birth - MySQL cannot accept empty string for dates
+      // Handle date_of_birth - SQLite can accept empty string for dates
       if (
         dateOfBirth !== undefined &&
         dateOfBirth !== null &&
@@ -97,7 +96,7 @@ const customerController = {
       ) {
         updateData.date_of_birth = dateOfBirth.toString().trim();
       } else {
-        updateData.date_of_birth = null; // Must be null, not empty string
+        updateData.date_of_birth = null;
       }
 
       console.log("[Backend] Cleaned update data:", updateData);
@@ -156,6 +155,7 @@ const customerController = {
       });
     }
   },
+
   // Get customer's loans
   async getLoans(req, res, next) {
     try {

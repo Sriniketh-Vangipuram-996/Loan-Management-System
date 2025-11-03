@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { pool } = require("../config/database");
+const db = require("../config/database");
 const jwtConfig = require("../config/jwt");
 
 const authenticateToken = async (req, res, next) => {
@@ -24,12 +24,12 @@ const authenticateToken = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log(" [Auth] Token decoded:", { userId: decoded.userId });
 
-    const [users] = await pool.execute(
+    const user = await db.getAsync(
       "SELECT id, email, role, name FROM users WHERE id = ?",
       [decoded.userId]
     );
 
-    if (users.length === 0) {
+    if (!user) {
       console.log("[Auth] User not found in database");
       return res.status(401).json({
         success: false,
@@ -37,7 +37,6 @@ const authenticateToken = async (req, res, next) => {
       });
     }
 
-    const user = users[0];
     console.log("[Auth] User from database:", {
       id: user.id,
       email: user.email,
@@ -61,4 +60,5 @@ const authenticateToken = async (req, res, next) => {
     });
   }
 };
+
 module.exports = { authenticateToken };

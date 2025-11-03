@@ -95,6 +95,7 @@ const authController = {
       next(error);
     }
   },
+
   // Customer login
   async login(req, res, next) {
     try {

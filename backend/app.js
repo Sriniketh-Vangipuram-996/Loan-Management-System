@@ -52,7 +52,17 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use(errorHandler);
-
+// After mounting routes, add this:
+console.log("Available routes:");
+app._router.stack.forEach((middleware) => {
+  if (middleware.route) {
+    console.log(
+      `${Object.keys(middleware.route.methods)} ${middleware.route.path}`
+    );
+  } else if (middleware.name === "router") {
+    console.log("Router mounted at:", middleware.regexp);
+  }
+});
 // 404 handler
 app.use("*", (req, res) => {
   res.status(404).json({

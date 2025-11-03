@@ -1,19 +1,20 @@
 const Loan = require("../models/loan");
 const User = require("../models/user");
-const { pool } = require("../config/database");
+const db = require("../config/database");
 const { hashPassword } = require("../utils/passwordHash");
+
 const adminController = {
   // Get admin dashboard statistics
   async getDashboardStats(req, res, next) {
     try {
       const loanStats = await Loan.getStats();
 
-      const [todayLoans] = await pool.execute(
+      const todayLoans = await db.getAsync(
         `SELECT COUNT(*) as count FROM loans 
-                 WHERE DATE(applied_date) = CURDATE()`
+                 WHERE DATE(applied_date) = DATE('now')`
       );
 
-      const [customerCount] = await pool.execute(
+      const customerCount = await db.getAsync(
         `SELECT COUNT(*) as count FROM users WHERE role = 'customer'`
       );
 
@@ -22,17 +23,15 @@ const adminController = {
         pendingLoans: loanStats.pending_loans,
         approvedLoans: loanStats.approved_loans,
         rejectedLoans: loanStats.rejected_loans,
-        totalCustomers: customerCount[0].count,
+        totalCustomers: customerCount.count,
         totalAmountDisbursed: loanStats.total_amount,
         averageLoanAmount: loanStats.average_amount,
-        todayApplications: todayLoans[0].count,
+        todayApplications: todayLoans.count,
       };
 
       res.json({
         success: true,
-        data: {
-          stats,
-        },
+        data: { stats },
       });
     } catch (error) {
       next(error);
@@ -42,16 +41,9 @@ const adminController = {
   async getAllLoans(req, res, next) {
     try {
       const { status, loanType, limit = 50, page = 1 } = req.query;
-
       const filters = {};
       if (status) filters.status = status;
       if (loanType) filters.loanType = loanType;
-
-      const limitInt = parseInt(limit, 10);
-      const pageInt = parseInt(page, 10);
-
-      filters.limit = !isNaN(limitInt) && limitInt > 0 ? limitInt : 50;
-      filters.page = !isNaN(pageInt) && pageInt > 0 ? pageInt : 1;
 
       const loans = await Loan.findAll(filters);
 
@@ -121,7 +113,7 @@ const adminController = {
     try {
       console.log("Fetching all customers...");
 
-      const [customers] = await pool.execute(
+      const customers = await db.allAsync(
         `SELECT id, name, email, phone, occupation, annual_income, created_at 
              FROM users 
              WHERE role = 'customer' 
@@ -149,7 +141,6 @@ const adminController = {
   async getCustomerDetails(req, res, next) {
     try {
       const { id } = req.params;
-
       const customer = await User.findById(id);
 
       if (!customer || customer.role !== "customer") {
@@ -186,12 +177,11 @@ const adminController = {
   async getAnalytics(req, res, next) {
     try {
       console.log("=== ANALYTICS START ===");
-      const [statusCounts] = await pool.execute(`
-            SELECT status, COUNT(*) as count 
-            FROM loans 
-            GROUP BY status
-        `);
-      console.log("Status counts from DB:", statusCounts);
+      const statusCounts = await db.allAsync(`
+        SELECT status, COUNT(*) as count 
+        FROM loans 
+        GROUP BY status
+      `);
 
       let approvedLoans = 0;
       let pendingLoans = 0;
@@ -216,59 +206,42 @@ const adminController = {
         }
       });
 
-      console.log("Processed counts:", {
+      const applicationsOverTime = await db.allAsync(`
+        SELECT DATE(applied_date) as date, COUNT(*) as count 
+        FROM loans 
+        WHERE applied_date >= datetime('now', '-30 days')
+        GROUP BY DATE(applied_date)
+        ORDER BY date
+      `);
+
+      const loanTypes = await db.allAsync(`
+        SELECT loan_type, COUNT(*) as count 
+        FROM loans 
+        GROUP BY loan_type
+      `);
+
+      const approvalStats = await db.getAsync(`
+        SELECT 
+          COUNT(*) as total,
+          SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approved
+        FROM loans
+      `);
+
+      const approvalRate =
+        approvalStats.total > 0
+          ? (approvalStats.approved / approvalStats.total) * 100
+          : 0;
+
+      const responseData = {
         approvedLoans,
         pendingLoans,
         rejectedLoans,
         underReviewLoans,
-      });
-
-      const [applicationsOverTime] = await pool.execute(`
-            SELECT DATE(applied_date) as date, COUNT(*) as count 
-            FROM loans 
-            WHERE applied_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-            GROUP BY DATE(applied_date)
-            ORDER BY date
-        `);
-
-      const [loanTypes] = await pool.execute(`
-            SELECT loan_type, COUNT(*) as count 
-            FROM loans 
-            GROUP BY loan_type
-        `);
-
-      const [approvalStats] = await pool.execute(`
-            SELECT 
-                COUNT(*) as total,
-                SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approved
-            FROM loans
-        `);
-
-      const approvalRate =
-        approvalStats[0].total > 0
-          ? (approvalStats[0].approved / approvalStats[0].total) * 100
-          : 0;
-
-      const responseData = {
-        approvedLoans: approvedLoans,
-        pendingLoans: pendingLoans,
-        rejectedLoans: rejectedLoans,
-        underReviewLoans: underReviewLoans,
-
-        applicationsOverTime: applicationsOverTime,
-        loanTypes: loanTypes,
+        applicationsOverTime,
+        loanTypes,
         approvalRate: Math.round(approvalRate * 100) / 100,
         averageProcessingTime: 2.1,
       };
-
-      console.log("=== FINAL RESPONSE DATA ===");
-      console.log("Response keys:", Object.keys(responseData));
-      console.log("Status data in response:", {
-        approvedLoans: responseData.approvedLoans,
-        pendingLoans: responseData.pendingLoans,
-        rejectedLoans: responseData.rejectedLoans,
-        underReviewLoans: responseData.underReviewLoans,
-      });
 
       res.json({
         success: true,
@@ -280,25 +253,6 @@ const adminController = {
     }
   },
 
-  async updateSystemSettings(req, res, next) {
-    try {
-      const { interestRates, loanLimits, notificationSettings } = req.body;
-
-      res.json({
-        success: true,
-        message: "Settings updated successfully",
-        data: {
-          settings: {
-            interestRates,
-            loanLimits,
-            notificationSettings,
-          },
-        },
-      });
-    } catch (error) {
-      next(error);
-    }
-  },
   async getAdminProfile(req, res, next) {
     console.log("getAdminProfile called, user:", req.user);
     try {
@@ -323,6 +277,7 @@ const adminController = {
       next(error);
     }
   },
+
   async getLoanDetails(req, res, next) {
     try {
       const { id } = req.params;
@@ -343,6 +298,7 @@ const adminController = {
       next(error);
     }
   },
+
   async getSingleUser(req, res, next) {
     try {
       console.log("Getting user");
@@ -356,20 +312,19 @@ const adminController = {
       }
       res.json({
         success: true,
-        data: {
-          user,
-        },
+        data: { user },
       });
     } catch (error) {
       console.error("Get single user error:", error);
       next(error);
     }
   },
+
   async getAllUsers(req, res, next) {
     try {
       console.log("Fetching all users...");
 
-      const [users] = await pool.execute(
+      const users = await db.allAsync(
         `SELECT id, name, email, phone, occupation, annual_income, role, created_at 
                  FROM users 
                  ORDER BY created_at DESC`
@@ -461,6 +416,7 @@ const adminController = {
           message: "User not found",
         });
       }
+
       const updated = await User.update(id, {
         name,
         email,
@@ -475,6 +431,7 @@ const adminController = {
           message: "Failed to update user",
         });
       }
+
       const user = await User.findById(id);
 
       res.json({
@@ -497,7 +454,6 @@ const adminController = {
     }
   },
 
-  // Delete user
   async deleteUser(req, res, next) {
     try {
       const { id } = req.params;
@@ -517,11 +473,9 @@ const adminController = {
         });
       }
 
-      const [result] = await pool.execute("DELETE FROM users WHERE id = ?", [
-        id,
-      ]);
+      const result = await db.runAsync("DELETE FROM users WHERE id = ?", [id]);
 
-      if (result.affectedRows === 0) {
+      if (result.changes === 0) {
         return res.status(404).json({
           success: false,
           message: "User not found",
@@ -566,12 +520,12 @@ const adminController = {
         });
       }
 
-      const [result] = await pool.execute(
+      const result = await db.runAsync(
         "UPDATE users SET role = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
         [role, id]
       );
 
-      if (result.affectedRows === 0) {
+      if (result.changes === 0) {
         return res.status(400).json({
           success: false,
           message: "Failed to update user role",
@@ -599,7 +553,7 @@ const adminController = {
       next(error);
     }
   },
-  // Update admin profile
+
   async updateAdminProfile(req, res, next) {
     try {
       const { name, email, phone } = req.body;
@@ -621,9 +575,6 @@ const adminController = {
 
       const cleanPhone = phone && phone.trim() !== "" ? phone.trim() : null;
 
-      console.log("[Admin] Cleaned data:", { name, email, phone: cleanPhone });
-
-      // Update admin profile
       const updated = await User.update(adminId, {
         name: name.trim(),
         email: email.trim(),
@@ -638,13 +589,6 @@ const adminController = {
       }
 
       const admin = await User.findById(adminId);
-
-      console.log(" [Admin] Profile updated successfully:", {
-        id: admin.id,
-        name: admin.name,
-        email: admin.email,
-        phone: admin.phone,
-      });
 
       res.json({
         success: true,
@@ -667,7 +611,7 @@ const adminController = {
       });
     }
   },
-  // Change admin password
+
   async changeAdminPassword(req, res, next) {
     try {
       const { currentPassword, newPassword } = req.body;
@@ -695,16 +639,13 @@ const adminController = {
         });
       }
 
-      // Hash new password
       const hashedNewPassword = await hashPassword(newPassword);
-
-      // Update password
-      const [result] = await pool.execute(
+      const result = await db.runAsync(
         "UPDATE users SET password = ? WHERE id = ?",
         [hashedNewPassword, adminId]
       );
 
-      if (result.affectedRows === 0) {
+      if (result.changes === 0) {
         return res.status(400).json({
           success: false,
           message: "Failed to update password",
@@ -717,48 +658,6 @@ const adminController = {
       });
     } catch (error) {
       console.error("Change password error:", error);
-      next(error);
-    }
-  },
-
-  async updateSystemSettings(req, res, next) {
-    try {
-      const {
-        sessionTimeout,
-        maxLoginAttempts,
-        emailNotifications,
-        smsNotifications,
-        autoApproveLimit,
-        interestRates,
-      } = req.body;
-
-      const settings = {
-        sessionTimeout: sessionTimeout || 30,
-        maxLoginAttempts: maxLoginAttempts || 5,
-        emailNotifications:
-          emailNotifications !== undefined ? emailNotifications : true,
-        smsNotifications:
-          smsNotifications !== undefined ? smsNotifications : false,
-        autoApproveLimit: autoApproveLimit || 100000,
-        interestRates: interestRates || {
-          personal: 10.5,
-          home: 8.5,
-          car: 9.0,
-          education: 7.5,
-          business: 12.0,
-        },
-        updatedAt: new Date().toISOString(),
-        updatedBy: req.user.id,
-      };
-      res.json({
-        success: true,
-        message: "Settings updated successfully",
-        data: {
-          settings,
-        },
-      });
-    } catch (error) {
-      console.error("Update settings error:", error);
       next(error);
     }
   },
@@ -787,7 +686,7 @@ const adminController = {
       };
 
       try {
-        const [settings] = await pool.execute(
+        const settings = await db.allAsync(
           `SELECT setting_key, setting_value FROM system_settings 
                  WHERE setting_key IN ('system_settings', 'loan_interest_rates')`
         );
@@ -847,10 +746,10 @@ const adminController = {
         adminId,
       });
 
-      const [result] = await pool.execute(
+      const result = await db.runAsync(
         `INSERT INTO system_settings (setting_key, setting_value, description, updated_by) 
              VALUES ('loan_interest_rates', ?, 'Loan interest rates configuration', ?) 
-             ON DUPLICATE KEY UPDATE 
+             ON CONFLICT(setting_key) DO UPDATE SET 
                 setting_value = ?, 
                 description = 'Loan interest rates configuration',
                 updated_by = ?,
@@ -885,12 +784,12 @@ const adminController = {
     try {
       console.log("[Public] Fetching interest rates from database...");
 
-      const [settings] = await pool.execute(
+      const settings = await db.getAsync(
         `SELECT setting_value FROM system_settings WHERE setting_key = 'loan_interest_rates'`
       );
 
-      if (settings.length > 0 && settings[0].setting_value) {
-        const dbRates = JSON.parse(settings[0].setting_value);
+      if (settings && settings.setting_value) {
+        const dbRates = JSON.parse(settings.setting_value);
         console.log(" [Public] Using rates from database:", dbRates);
 
         return res.json({
@@ -938,7 +837,7 @@ const adminController = {
       const { id } = req.params;
       console.log("[Admin] Fetching loans for user:", id);
 
-      const [loans] = await pool.execute(
+      const loans = await db.allAsync(
         `SELECT * FROM loans WHERE user_id = ? ORDER BY applied_date DESC`,
         [id]
       );
@@ -959,13 +858,11 @@ const adminController = {
     try {
       const adminId = req.user.id;
 
-      // Verify the user is still an admin in database
-      const [users] = await pool.execute(
-        "SELECT role FROM users WHERE id = ?",
-        [adminId]
-      );
+      const user = await db.getAsync("SELECT role FROM users WHERE id = ?", [
+        adminId,
+      ]);
 
-      if (users.length === 0 || users[0].role !== "admin") {
+      if (!user || user.role !== "admin") {
         return res.status(403).json({
           success: false,
           message: "Admin access required",

@@ -1064,6 +1064,7 @@
       }
 
       // Form submission
+      // Form submission
       document
         .getElementById("loanApplicationForm")
         .addEventListener("submit", async function (e) {
@@ -1080,8 +1081,17 @@
           submitBtn.textContent = "Submitting Application...";
 
           try {
-            // Form data
+            // Form data - FIXED VERSION
             const loanType = document.getElementById("loanType").value;
+            const interestRateInput =
+              document.getElementById("interestRate").value;
+            const interestRate =
+              parseFloat(interestRateInput.replace("%", "")) ||
+              loanConfigurations[loanType]?.rate ||
+              10.5;
+
+            console.log("Submitting with interest rate:", interestRate);
+
             const formData = {
               loanType: loanType,
               amount: parseFloat(document.getElementById("loanAmount").value),
@@ -1096,6 +1106,7 @@
                 document.getElementById("annualIncome").value
               ),
               companyName: document.getElementById("companyName").value || "",
+              interestRate: interestRate, // THIS WAS MISSING!
             };
 
             console.log("[Loan Apply] Submitting loan application:", formData);
