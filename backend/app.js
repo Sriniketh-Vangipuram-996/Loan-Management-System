@@ -20,6 +20,7 @@ app.use(
       "http://localhost:5500",
       "http://localhost:3000",
       "http://127.0.0.1:8080",
+      "https://mern-fintech.netlify.app",
     ],
     credentials: true,
   })
