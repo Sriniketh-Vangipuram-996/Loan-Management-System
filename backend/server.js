@@ -1,16 +1,31 @@
-require('dotenv').config();
-const app = require('./app');
-const { connectDB } = require('./config/database');
+require("dotenv").config();
+const app = require("./app");
+const { connectDB } = require("./config/database");
 
 const PORT = process.env.PORT || 5000;
 
 // Start server
-connectDB().then(() => {
+async function startServer() {
+  try {
+    // Try to connect to database, but don't crash if it fails
+    await connectDB();
+
+    // Start server regardless of database connection
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-        console.log(` Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(
+        `📊 Database status: ${
+          process.env.DB_HOST ? "Configured" : "Not configured"
+        }`
+      );
     });
-}).catch(err => {
-    console.error('Database connection failed:', err);
-    process.exit(1);
-});
+  } catch (error) {
+    console.log("Server started without database connection");
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT} (without database)`);
+    });
+  }
+}
+startServer();
