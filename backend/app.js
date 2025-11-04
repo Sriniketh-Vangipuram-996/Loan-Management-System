@@ -21,6 +21,7 @@ app.use(
       "http://localhost:3000",
       "http://127.0.0.1:8080",
       "https://mern-fintech.netlify.app",
+      "https://*.netlify.app",
     ],
     credentials: true,
   })
@@ -35,6 +36,21 @@ app.use(limiter);
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
+
+// Debug: Check what each route file exports
+console.log("=== ROUTE EXPORTS DEBUG ===");
+console.log("authRoutes type:", typeof authRoutes);
+console.log("authRoutes constructor:", authRoutes?.constructor?.name);
+
+console.log("customerRoutes type:", typeof customerRoutes);
+console.log("customerRoutes constructor:", customerRoutes?.constructor?.name);
+
+console.log("adminRoutes type:", typeof adminRoutes);
+console.log("adminRoutes constructor:", adminRoutes?.constructor?.name);
+
+console.log("loanRoutes type:", typeof loanRoutes);
+console.log("loanRoutes constructor:", loanRoutes?.constructor?.name);
+console.log("=== END DEBUG ===");
 
 // Routes
 app.use("/api/auth", authRoutes);
