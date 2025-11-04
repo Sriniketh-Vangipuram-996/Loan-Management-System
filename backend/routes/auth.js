@@ -1,5 +1,5 @@
 const express = require("express");
-const authController = require("../controllers/authController"); // Import the whole object
+const authController = require("../controllers/authController"); // No destructuring
 const { authenticateToken } = require("../middlware/auth");
 const {
   validateRegistration,
