@@ -19,3 +19,5 @@ router.get("/loans", adminController.getAllLoans);
 router.get("/loans/:id", adminController.getLoanDetails);
 router.put("/loans/:id", adminController.updateLoanStatus);
 // ... and all other admin routes
+
+module.exports = router;
