@@ -1,3 +1,2 @@
 // config.js
-const API_URL = "https://loan-backend-3ml6.onrender.com/api";
-export default API_URL;
+export const API_BASE_URL = "https://loan-backend-3ml6.onrender.com/api";
