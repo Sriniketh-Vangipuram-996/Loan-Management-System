@@ -1,7 +1,3 @@
 // config.js
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://your-app-name.onrender.com/api"
-    : "http://localhost:5000/api";
-
+const API_URL = "https://loan-backend-3ml6.onrender.com/api";
 export default API_URL;
